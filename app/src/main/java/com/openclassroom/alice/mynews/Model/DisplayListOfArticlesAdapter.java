@@ -26,4 +26,9 @@ public class DisplayListOfArticlesAdapter extends FragmentPagerAdapter {
         return (DisplayListOfArticleFragment.newInstance(position));
     }
 
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return "Page "+position;
+    }
+
 }
