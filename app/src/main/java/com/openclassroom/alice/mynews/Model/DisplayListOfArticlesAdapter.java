@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.openclassroom.alice.mynews.Controller.Fragments.DisplayListOfArticleFragment;
 
 /**
- * Created by Alice on 19 December 2018.
+ * Created by Alice on 05 December 2018.
  */
 public class DisplayListOfArticlesAdapter extends FragmentPagerAdapter {
 
