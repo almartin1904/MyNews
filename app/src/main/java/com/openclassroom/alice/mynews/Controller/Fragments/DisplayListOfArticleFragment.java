@@ -4,6 +4,7 @@ package com.openclassroom.alice.mynews.Controller.Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -38,6 +39,8 @@ public class DisplayListOfArticleFragment extends Fragment {
     private static final String TAG = "ArticleFragment";
 
     @BindView(R.id.fragment_page_recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.fragment_page_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     private Disposable mDisposable;
     private List<NYTArticle> mNYTArticles;
@@ -61,6 +64,7 @@ public class DisplayListOfArticleFragment extends Fragment {
         ButterKnife.bind(this,result);
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
+        this.configureSwipeRefreshLayout();
         return result;
     }
 
@@ -113,11 +117,22 @@ public class DisplayListOfArticleFragment extends Fragment {
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
+    private void configureSwipeRefreshLayout() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                executeHttpRequestWithRetrofit();
+            }
+        });
+    }
+
+
     // -------------------
     // UPDATE UI
     // -------------------
 
     private void updateUI(List<NYTArticle> articles){
+        mSwipeRefreshLayout.setRefreshing(false);
         mNYTArticles.clear();
         mNYTArticles.addAll(articles);
         mAdapter.notifyDataSetChanged();
