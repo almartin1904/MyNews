@@ -2,19 +2,25 @@ package com.openclassroom.alice.mynews.Controller.Fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.openclassroom.alice.mynews.Model.DisplayListOfArticlesAdapter;
 import com.openclassroom.alice.mynews.Model.NYTArticle;
 import com.openclassroom.alice.mynews.Model.RequestResult;
 import com.openclassroom.alice.mynews.R;
 import com.openclassroom.alice.mynews.Utils.NYTArticleStreams;
+import com.openclassroom.alice.mynews.Views.NYTArticleAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,9 +37,11 @@ public class DisplayListOfArticleFragment extends Fragment {
     private static final String KEY_POSITION="position";
     private static final String TAG = "ArticleFragment";
 
-    @BindView(R.id.fragment_displayListOfArticle_textview) TextView mTextView;
+    @BindView(R.id.fragment_page_recycler_view) RecyclerView mRecyclerView;
 
     private Disposable mDisposable;
+    private List<NYTArticle> mNYTArticles;
+    private NYTArticleAdapter mAdapter;
 
     public DisplayListOfArticleFragment() { }
 
@@ -47,14 +55,12 @@ public class DisplayListOfArticleFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View result = inflater.inflate(R.layout.fragment_display_list_of_article, container, false);
-
         ButterKnife.bind(this,result);
+        this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
-
         return result;
     }
 
@@ -70,15 +76,14 @@ public class DisplayListOfArticleFragment extends Fragment {
 
     // 1 - Execute our Stream
     private void executeHttpRequestWithRetrofit(){
-        // 1.1 - Update UI
-        this.updateUIWhenStartingHTTPRequest();
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
         this.mDisposable = NYTArticleStreams.streamFetchArticleTopStories().subscribeWith(new DisposableObserver<RequestResult>() {
             @Override
-            public void onNext(RequestResult users) {
+            public void onNext(RequestResult topStories) {
                 Log.e(TAG,"On Next");
                 // 1.3 - Update UI with list of users
-                updateUIWithListOfUsers(users);
+                List<NYTArticle> articles=topStories.getResults();
+                updateUI(articles);
             }
 
             @Override
@@ -97,26 +102,25 @@ public class DisplayListOfArticleFragment extends Fragment {
         if (this.mDisposable != null && !this.mDisposable.isDisposed()) this.mDisposable.dispose();
     }
 
+    // -----------------
+    // CONFIGURATION
+    // -----------------
+
+    private void configureRecyclerView(){
+        this.mNYTArticles = new ArrayList<>();
+        this.mAdapter = new NYTArticleAdapter(this.mNYTArticles, Glide.with(this), getContext());
+        this.mRecyclerView.setAdapter(this.mAdapter);
+        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
     // -------------------
     // UPDATE UI
     // -------------------
 
-    private void updateUIWhenStartingHTTPRequest(){
-        this.mTextView.setText("Downloading...");
-    }
-
-    private void updateUIWhenStopingHTTPRequest(String response){
-        this.mTextView.setText(response);
-    }
-
-    private void updateUIWithListOfUsers(RequestResult result){
-        StringBuilder stringBuilder = new StringBuilder();
-        List<NYTArticle> nytArticles = result.getResults();
-        for (NYTArticle article : nytArticles){
-            stringBuilder.append("-"+article.getTitle()+"\n");
-            Log.d(TAG, "updateUIWithListOfUsers: " + article.getTitle());
-        }
-        updateUIWhenStopingHTTPRequest(stringBuilder.toString());
+    private void updateUI(List<NYTArticle> articles){
+        mNYTArticles.clear();
+        mNYTArticles.addAll(articles);
+        mAdapter.notifyDataSetChanged();
     }
 
 }

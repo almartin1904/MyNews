@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Display item article -->
+    <dimen name="ItemArticle_PictureSize">50dp</dimen>
+
+    <!--Margin-->
+    <dimen name="marginStart">12dp</dimen>
+    <dimen name="marginEnd">12dp</dimen>
+    <dimen name="marginTop">12dp</dimen>
+    <dimen name="padding">12dip</dimen>
+
+    <!--Text Size-->
+    <dimen name="text_size">12sp</dimen>
+    <dimen name="title_size">15sp</dimen>
+
+    <!--Checkbox-->
+    <dimen name="date_marginTop">24dp</dimen>
+
+    <!--Notifications-->
+    <dimen name="text_switch">12sp</dimen>
+
+    <!--Search-->
+    <dimen name="text_button">12sp</dimen>
+</resources>
