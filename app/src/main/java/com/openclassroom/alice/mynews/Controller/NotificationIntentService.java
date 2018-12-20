@@ -5,7 +5,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 
 import com.openclassroom.alice.mynews.Controller.Activities.NotificationActivity;
 import com.openclassroom.alice.mynews.R;
