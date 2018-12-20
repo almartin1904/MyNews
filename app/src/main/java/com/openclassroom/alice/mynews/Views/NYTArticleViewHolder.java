@@ -1,6 +1,7 @@
 package com.openclassroom.alice.mynews.Views;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
+import com.openclassroom.alice.mynews.Model.AlreadyReadArticles;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
 import com.openclassroom.alice.mynews.R;
 
@@ -16,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Alice on 20 December 2018.
+ * Created by Alice on 10 December 2018.
  */
 public class NYTArticleViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.fragment_article_item_title) TextView titleTxt;
@@ -45,5 +47,16 @@ public class NYTArticleViewHolder extends RecyclerView.ViewHolder {
         } catch (Exception e){
             Log.e(TAG, "updateWithNYTArticle: " + e.getMessage());
         }
+
+        if (alreadyReadArticle(mNYTArticle.getTitle())){
+            this.titleTxt.setTextColor(mContext.getResources().getColor(R.color.colorAlreadyRead));
+        } else {
+            this.titleTxt.setTextColor(Color.BLACK);
+        }
+    }
+
+    private boolean alreadyReadArticle(String title) {
+        AlreadyReadArticles alreadyReadArticles=AlreadyReadArticles.getInstance(mContext);
+        return alreadyReadArticles.hasAlreadyBeenRead(title);
     }
 }

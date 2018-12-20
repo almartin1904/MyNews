@@ -8,15 +8,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.openclassroom.alice.mynews.Controller.Activities.ArticleDisplayActivity;
+import com.openclassroom.alice.mynews.Model.AlreadyReadArticles;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.RequestResult;
 import com.openclassroom.alice.mynews.Model.SearchCriteria;
@@ -39,7 +38,6 @@ import io.reactivex.observers.DisposableObserver;
 public class DisplayListOfArticleFragment extends Fragment {
 
     private static final String KEY_POSITION="position";
-    private static final String TAG = "ArticleFragment";
 
     @BindView(R.id.fragment_page_recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.fragment_page_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
@@ -77,6 +75,12 @@ public class DisplayListOfArticleFragment extends Fragment {
     public void onDestroy(){
         super.onDestroy();
         this.disposeWhenDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        executeHttpRequestWithRetrofit();
     }
 
     // -------------------
@@ -205,6 +209,8 @@ public class DisplayListOfArticleFragment extends Fragment {
                         NYTArticle mNYTArticle = mAdapter.getNYTArticle(position);
                         Intent displayArticleActivity = new Intent(getActivity(), ArticleDisplayActivity.class);
                         displayArticleActivity.putExtra(String.valueOf(R.string.URL), mNYTArticle.getUrl());
+                        AlreadyReadArticles alreadyReadArticles=AlreadyReadArticles.getInstance(getContext());
+                        alreadyReadArticles.addNewTitleToList(mNYTArticle.getTitle());
                         startActivityForResult(displayArticleActivity, 0);
                     }
                 });
