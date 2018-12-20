@@ -29,6 +29,9 @@ public class RequestResult {
     @SerializedName("results")
     @Expose
     private List<NYTArticle> mNYTArticles = null;
+    @SerializedName("response")
+    @Expose
+    private Response response;
 
 
     private static final String API_TOP_STORIES= "TopStories";
@@ -44,6 +47,9 @@ public class RequestResult {
             case API_MOST_POPULAR:
                 this.mNYTArticles = new ArrayList<>();
                 mNYTArticles.add(new NYTArticle(API, title,"","","","",""));
+                break;
+            case API_ARTICLE_SEARCH:
+                this.response = new Response(API, title);
                 break;
             default:
         }
@@ -90,7 +96,12 @@ public class RequestResult {
     }
 
     public List<NYTArticle> getNYTArticles() {
-        return mNYTArticles;
+        if (mNYTArticles!=null){
+            return mNYTArticles;
+        }
+        else {
+            return response.getDocs();
+        }
     }
 
     public void setNYTArticles(List<NYTArticle> mNYTArticles) {

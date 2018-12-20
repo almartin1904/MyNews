@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Controller.Activities.ArticleDisplayActivity" />
-        <activity android:name=".Controller.Activities.SearchActivity"></activity>
+        <activity android:name=".Controller.Activities.SearchActivity" />
+        <activity android:name=".Controller.Activities.SearchResultActivity"></activity>
     </application>
 
 </manifest>

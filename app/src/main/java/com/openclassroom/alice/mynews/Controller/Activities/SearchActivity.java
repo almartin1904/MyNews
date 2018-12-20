@@ -1,16 +1,24 @@
 package com.openclassroom.alice.mynews.Controller.Activities;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.openclassroom.alice.mynews.Controller.Fragments.SearchFilterFragments.CategoriesFragment;
 import com.openclassroom.alice.mynews.Controller.Fragments.SearchFilterFragments.DatesFragment;
 import com.openclassroom.alice.mynews.Controller.Fragments.SearchFilterFragments.KeyWordFragment;
+import com.openclassroom.alice.mynews.Model.SearchCriteria;
 import com.openclassroom.alice.mynews.R;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -61,4 +69,50 @@ public class SearchActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
+    @OnClick(R.id.search_btn)
+    public void submit(View view) {
+        SearchCriteria searchCriteria = createSearchCriteria();
+
+        if (!searchCriteria.dateFormatIsOk()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.ErrorTitle);
+            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            builder.setMessage(R.string.wrongDateFormatMessage);
+            builder.show();
+        } else {
+            if (mCategoriesFragment.searchNOk() && mKeyWordFragment.searchNOk())
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.ErrorTitle);
+                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.setMessage(R.string.missFilterMessage);
+                builder.show();
+            }
+            else {
+                //search criterias are Ok
+                Intent resultActivity = new Intent(SearchActivity.this, SearchResultActivity.class);
+                resultActivity.putExtra(String.valueOf(R.string.SearchCriteriaExtra), searchCriteria);
+                startActivity(resultActivity);
+            }
+        }
+    }
+
+    private SearchCriteria createSearchCriteria() {
+
+        String queryTerm = mKeyWordFragment.getKeyKeyWord();
+        String beginDate = mDatesFragment.getBeginDate();
+        String endDate = mDatesFragment.getEndDate();
+        List<String> categories=mCategoriesFragment.getListOfCategories();
+
+        return new SearchCriteria(queryTerm,beginDate, endDate, categories);
+    }
+
+
 }

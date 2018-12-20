@@ -12,12 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.openclassroom.alice.mynews.Controller.Activities.ArticleDisplayActivity;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.RequestResult;
+import com.openclassroom.alice.mynews.Model.SearchCriteria;
 import com.openclassroom.alice.mynews.R;
 import com.openclassroom.alice.mynews.Utils.ItemClickSupport;
 import com.openclassroom.alice.mynews.Utils.NYTArticleStreams;
@@ -41,6 +43,7 @@ public class DisplayListOfArticleFragment extends Fragment {
 
     @BindView(R.id.fragment_page_recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.fragment_page_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.no_result_txt) TextView mNoResultTxt;
 
 
     private Disposable mDisposable;
@@ -92,6 +95,33 @@ public class DisplayListOfArticleFragment extends Fragment {
             position=-1;
         }
         switch (position){
+            case -1:
+                if (getActivity()!=null){
+                    Intent i=getActivity().getIntent();
+                    SearchCriteria searchCriteria = (SearchCriteria) i.getSerializableExtra(String.valueOf(R.string.SearchCriteriaExtra));
+                    this.mDisposable = NYTArticleStreams.streamFetchSearchArticle(searchCriteria.getSearchTerm(), searchCriteria.getSerializedCategories(), searchCriteria.getBeginDateWithAdaptedFormat(), searchCriteria.getEndDateWithAdaptedFormat()).subscribeWith(new DisposableObserver<RequestResult>() {
+                        @Override
+                        public void onNext(RequestResult requestResult) {
+                            List<NYTArticle> articles=requestResult.getNYTArticles();
+                            if (articles.isEmpty()){
+                                mNoResultTxt.setVisibility(View.VISIBLE);
+                                mRecyclerView.setVisibility(View.GONE);
+                            } else {
+                                mNoResultTxt.setVisibility(View.GONE);
+                                mRecyclerView.setVisibility(View.VISIBLE);
+                            }
+                            updateUI(articles);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                        }
+
+                        @Override
+                        public void onComplete() { }
+                    });
+                }
+                break;
             case 0:
                 this.mDisposable = NYTArticleStreams.streamFetchArticleTopStories().subscribeWith(new DisposableObserver<RequestResult>() {
                     @Override
