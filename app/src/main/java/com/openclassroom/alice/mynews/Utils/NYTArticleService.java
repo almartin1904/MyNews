@@ -2,7 +2,7 @@ package com.openclassroom.alice.mynews.Utils;
 
 
 
-import com.openclassroom.alice.mynews.Model.RequestResult;
+import com.openclassroom.alice.mynews.Model.ResultOfRequest.RequestResult;
 
 import io.reactivex.Observable;
 import retrofit2.Retrofit;
@@ -19,6 +19,12 @@ public interface NYTArticleService {
 
     @GET("topstories/v2/home.json?api-key="+APIKey)
     Observable<RequestResult> getTopStories();
+
+    @GET("mostpopular/v2/mostviewed/all-sections/30.json?api-key="+APIKey)
+    Observable<RequestResult> getMostPopular();
+
+    @GET("topstories/v2/sports.json?api-key="+APIKey)
+    Observable<RequestResult> getSport();
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://api.nytimes.com/svc/")

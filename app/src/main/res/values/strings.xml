@@ -7,6 +7,11 @@
     <string name="help">Help</string>
     <string name="about">About</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Tabs-->
+    <string-array name="TitleTabs">
+        <item>Top Stories</item>
+        <item>Most Popular</item>
+        <item>Sport</item>
+    </string-array>
+
 </resources>

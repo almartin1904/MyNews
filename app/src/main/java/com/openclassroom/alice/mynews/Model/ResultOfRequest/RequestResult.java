@@ -1,8 +1,10 @@
-package com.openclassroom.alice.mynews.Model;
+package com.openclassroom.alice.mynews.Model.ResultOfRequest;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +28,26 @@ public class RequestResult {
     private Integer numResults;
     @SerializedName("results")
     @Expose
-    private List<NYTArticle> results = null;
+    private List<NYTArticle> mNYTArticles = null;
+
+
+    private static final String API_TOP_STORIES= "TopStories";
+    private static final String API_MOST_POPULAR= "MostPopular";
+    private static final String API_ARTICLE_SEARCH= "ArticleSearch";
+
+    public RequestResult(String API, String title){
+        switch (API){
+            case API_TOP_STORIES:
+                this.mNYTArticles = new ArrayList<>();
+                mNYTArticles.add(new NYTArticle(API, title,"","","","",""));
+                break;
+            case API_MOST_POPULAR:
+                this.mNYTArticles = new ArrayList<>();
+                mNYTArticles.add(new NYTArticle(API, title,"","","","",""));
+                break;
+            default:
+        }
+    }
 
     public String getStatus() {
         return status;
@@ -68,11 +89,11 @@ public class RequestResult {
         this.numResults = numResults;
     }
 
-    public List<NYTArticle> getResults() {
-        return results;
+    public List<NYTArticle> getNYTArticles() {
+        return mNYTArticles;
     }
 
-    public void setResults(List<NYTArticle> results) {
-        this.results = results;
+    public void setNYTArticles(List<NYTArticle> mNYTArticles) {
+        this.mNYTArticles = mNYTArticles;
     }
 }

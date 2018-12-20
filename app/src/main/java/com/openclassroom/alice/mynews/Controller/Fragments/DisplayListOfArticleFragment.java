@@ -7,16 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.openclassroom.alice.mynews.Model.DisplayListOfArticlesAdapter;
-import com.openclassroom.alice.mynews.Model.NYTArticle;
-import com.openclassroom.alice.mynews.Model.RequestResult;
+import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
+import com.openclassroom.alice.mynews.Model.ResultOfRequest.RequestResult;
 import com.openclassroom.alice.mynews.R;
 import com.openclassroom.alice.mynews.Utils.NYTArticleStreams;
 import com.openclassroom.alice.mynews.Views.NYTArticleAdapter;
@@ -26,7 +23,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
@@ -81,25 +77,64 @@ public class DisplayListOfArticleFragment extends Fragment {
     // 1 - Execute our Stream
     private void executeHttpRequestWithRetrofit(){
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
-        this.mDisposable = NYTArticleStreams.streamFetchArticleTopStories().subscribeWith(new DisposableObserver<RequestResult>() {
-            @Override
-            public void onNext(RequestResult topStories) {
-                Log.e(TAG,"On Next");
-                // 1.3 - Update UI with list of users
-                List<NYTArticle> articles=topStories.getResults();
-                updateUI(articles);
-            }
+        int position;
+        if (getArguments() != null) {
+            //display tabs
+            position = getArguments().getInt(KEY_POSITION, -1);
+        } else {
+            //display result of research
+            position=-1;
+        }
+        switch (position){
+            case 0:
+                this.mDisposable = NYTArticleStreams.streamFetchArticleTopStories().subscribeWith(new DisposableObserver<RequestResult>() {
+                    @Override
+                    public void onNext(RequestResult topStories) {
+                        List<NYTArticle> articles=topStories.getNYTArticles();
+                        updateUI(articles);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                Log.e(TAG,"On Error"+Log.getStackTraceString(e));
-            }
+                    @Override
+                    public void onError(Throwable e) { }
 
-            @Override
-            public void onComplete() {
-                Log.e(TAG,"On Complete !!");
-            }
-        });
+                    @Override
+                    public void onComplete() { }
+                });
+                break;
+            case 1:
+                this.mDisposable = NYTArticleStreams.streamFetchArticleMostPopular().subscribeWith(new DisposableObserver<RequestResult>() {
+                    @Override
+                    public void onNext(RequestResult topStories) {
+                        List<NYTArticle> articles=topStories.getNYTArticles();
+                        updateUI(articles);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { }
+
+                    @Override
+                    public void onComplete() { }
+                });
+                break;
+            case 2:
+                this.mDisposable = NYTArticleStreams.streamFetchArticleTopStoriesSport().subscribeWith(new DisposableObserver<RequestResult>() {
+                    @Override
+                    public void onNext(RequestResult topStories) {
+                        List<NYTArticle> articles=topStories.getNYTArticles();
+                        updateUI(articles);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { }
+
+                    @Override
+                    public void onComplete() { }
+                });
+                break;
+            default:
+                break;
+        }
+
     }
 
     private void disposeWhenDestroy(){

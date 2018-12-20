@@ -1,7 +1,6 @@
 package com.openclassroom.alice.mynews.Views;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
-import com.openclassroom.alice.mynews.Model.NYTArticle;
+import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
 import com.openclassroom.alice.mynews.R;
 
 import butterknife.BindView;
@@ -42,7 +41,7 @@ public class NYTArticleViewHolder extends RecyclerView.ViewHolder {
         this.sectionTxt.setText(mNYTArticle.getSection());
 
         try {
-            glide.load(mNYTArticle.getMultimedia().get(0).getUrl()).apply(RequestOptions.centerCropTransform()).into(picture);
+            glide.load(mNYTArticle.getImageURL()).apply(RequestOptions.centerCropTransform()).into(picture);
         } catch (Exception e){
             Log.e(TAG, "updateWithNYTArticle: " + e.getMessage());
         }
