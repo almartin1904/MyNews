@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         //3 - Handle actions on menu items
         switch (item.getItemId()) {
             case R.id.menu_activity_main_notif:
-                Toast.makeText(this, "Notification", Toast.LENGTH_LONG).show();
+                Intent notificationActivity = new Intent(MainActivity.this, NotificationActivity.class);
+                startActivity(notificationActivity);
                 return true;
             case R.id.menu_activity_main_search:
                 Intent searchActivity = new Intent(MainActivity.this, SearchActivity.class);
