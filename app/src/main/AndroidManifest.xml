@@ -22,6 +22,15 @@
         <activity android:name=".Controller.Activities.SearchActivity" />
         <activity android:name=".Controller.Activities.SearchResultActivity" />
         <activity android:name=".Controller.Activities.NotificationActivity"></activity>
+        <receiver
+            android:name=".Controller.SendNotificationReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <service
+            android:name=".Controller.NotificationIntentService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
