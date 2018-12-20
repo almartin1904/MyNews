@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Alice on 20 December 2018.
+ * Created by Alice on 10 December 2018.
  */
 public class Media {
     @SerializedName("type")

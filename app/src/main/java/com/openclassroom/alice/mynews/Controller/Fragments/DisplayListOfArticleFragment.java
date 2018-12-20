@@ -32,9 +32,6 @@ import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class DisplayListOfArticleFragment extends Fragment {
 
     private static final String KEY_POSITION="position";
@@ -42,7 +39,6 @@ public class DisplayListOfArticleFragment extends Fragment {
     @BindView(R.id.fragment_page_recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.fragment_page_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.no_result_txt) TextView mNoResultTxt;
-
 
     private Disposable mDisposable;
     private List<NYTArticle> mNYTArticles;
@@ -57,7 +53,6 @@ public class DisplayListOfArticleFragment extends Fragment {
         frag.setArguments(args);
         return(frag);
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -87,9 +82,8 @@ public class DisplayListOfArticleFragment extends Fragment {
     // HTTP (RxJAVA)
     // -------------------
 
-    // 1 - Execute our Stream
+    //todo : is it possible to factorize
     private void executeHttpRequestWithRetrofit(){
-        // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
         int position;
         if (getArguments() != null) {
             //display tabs

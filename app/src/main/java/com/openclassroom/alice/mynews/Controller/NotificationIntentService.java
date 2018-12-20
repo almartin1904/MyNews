@@ -10,12 +10,11 @@ import com.openclassroom.alice.mynews.Controller.Activities.NotificationActivity
 import com.openclassroom.alice.mynews.R;
 
 /**
- * Created by Alice on 20 December 2018.
+ * Created by Alice on 13 December 2018.
  */
 public class NotificationIntentService extends IntentService {
 
     private static final int NOTIFICATION_ID = 3;
-    private static final String TAG = "NotificationIntent";
 
     public NotificationIntentService() {
         super("NotificationIntentService");
@@ -26,13 +25,7 @@ public class NotificationIntentService extends IntentService {
 
         Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle(getResources().getString(R.string.NotifTitle));
-        int numberOfNewArticles = intent.getIntExtra(String.valueOf(R.string.NbArticles), 0);
-        if (numberOfNewArticles==10)
-        {
-            builder.setContentText(getResources().getString(R.string.NotifMessageBegin) + " more than " + String.valueOf(numberOfNewArticles) + " " + getResources().getString(R.string.NotifMessageEnd));
-        } else {
-            builder.setContentText(getResources().getString(R.string.NotifMessageBegin) + " " + String.valueOf(numberOfNewArticles) + " " + getResources().getString(R.string.NotifMessageEnd));
-        }
+        builder.setContentText(buildMessage(intent.getIntExtra(String.valueOf(R.string.NbArticles), 0)));
         builder.setSmallIcon(R.drawable.logo);
 
         Intent notifyIntent = new Intent(this, NotificationActivity.class);
@@ -41,5 +34,14 @@ public class NotificationIntentService extends IntentService {
         Notification notificationCompat = builder.build();
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(NOTIFICATION_ID, notificationCompat);
+    }
+
+    private String buildMessage(int numberOfNewArticles){
+        if (numberOfNewArticles==10)
+        {
+            return getResources().getString(R.string.NotifMessageBegin) + " more than " + String.valueOf(numberOfNewArticles) + " " + getResources().getString(R.string.NotifMessageEnd);
+        } else {
+            return getResources().getString(R.string.NotifMessageBegin) + " " + String.valueOf(numberOfNewArticles) + " " + getResources().getString(R.string.NotifMessageEnd);
+        }
     }
 }

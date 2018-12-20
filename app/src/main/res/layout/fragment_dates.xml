@@ -67,6 +67,7 @@
         android:layout_marginStart="@dimen/marginStart"
         android:layout_marginTop="@dimen/date_marginTop"
         android:layout_marginEnd="@dimen/marginEnd"
+        android:textSize="@dimen/title_size"
         app:layout_constraintEnd_toStartOf="@+id/guideline100"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline50"

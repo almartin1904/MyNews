@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         this.configureToolbar();
         this.configureViewPagerAndTabs();
     }
@@ -61,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    //------------------
+    // ViewPager
+    //------------------
 
     private void configureViewPagerAndTabs(){
         ViewPager pager = findViewById(R.id.activity_main_viewpager);

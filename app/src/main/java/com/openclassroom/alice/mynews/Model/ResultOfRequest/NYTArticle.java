@@ -1,5 +1,7 @@
 package com.openclassroom.alice.mynews.Model.ResultOfRequest;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.Multimedia;
@@ -11,6 +13,9 @@ import java.util.List;
  * Created by Alice on 10 December 2018.
  */
 public class NYTArticle {
+
+    private static final String TAG = NYTArticle.class.getSimpleName();
+    
     @SerializedName("web_url")
     @Expose
     private String webUrl;
@@ -118,6 +123,7 @@ public class NYTArticle {
             return title;
         }
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -129,6 +135,7 @@ public class NYTArticle {
             return url;
         }
     }
+
     public void setUrl(String url) {
         this.url = url;
     }
@@ -145,33 +152,43 @@ public class NYTArticle {
         String day = date.substring(8, 10);
         return day + "/" + month + "/" + year;
     }
+
     public void setPublishedDate(String publishedDate) {
         this.publishedDate = publishedDate;
     }
+
     public String getSection() {
         return section;
     }
+
     public void setSection(String section) {
         this.section = section;
     }
+
     public List<Multimedia> getMultimedia() {
         return multimedia;
     }
+
     public void setMultimedia(List<Multimedia> multimedia) {
         this.multimedia = multimedia;
     }
+
     public List<Media> getMedia() {
         return media;
     }
+
     public void setMedia(List<Media> media) {
         this.media = media;
     }
+
     public String getSubsection() {
         return subsection;
     }
+
     public void setSubsection(String subsection) {
         this.subsection = subsection;
     }
+
     public String getWebUrl() {
         return webUrl;
     }
@@ -253,14 +270,16 @@ public class NYTArticle {
     }
 
     public String getSectionAndSubsection(){
+        String result=section;
         if (sectionName!=null) {
-            section=sectionName;
+            result=sectionName;
         }
-        if (!subsection.equals("")){
-            return section + ">" + subsection;
-        } else
-            return section;
+        if (subsection!=null && !subsection.equals("")){
+            result=result+">"+subsection;
+        }
+        return result;
     }
+
     public String getImageURL () {
         if (media!=null){
             return media.get(0).getMediaMetadata().get(0).getUrl();

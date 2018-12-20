@@ -21,19 +21,16 @@ import io.reactivex.observers.DisposableObserver;
  */
 public class SendNotificationReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "SendNotif";
-    Disposable disposable;
+    Disposable mDisposable;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
 
         SearchCriteria mSearchCriteria = (SearchCriteria) intent.getSerializableExtra(String.valueOf(R.string.SearchCriteriaExtra));
-        Log.d(TAG, "onReceive: ");
-        this.disposable = NYTArticleStreams.streamFetchSearchArticle(mSearchCriteria.getSearchTerm(), mSearchCriteria.getSerializedCategories(), mSearchCriteria.getBeginDateWithAdaptedFormat(), mSearchCriteria.getEndDateWithAdaptedFormat()).subscribeWith(new DisposableObserver<RequestResult>() {
+        this.mDisposable = NYTArticleStreams.streamFetchSearchArticle(mSearchCriteria.getSearchTerm(), mSearchCriteria.getSerializedCategories(), mSearchCriteria.getBeginDateWithAdaptedFormat(), mSearchCriteria.getEndDateWithAdaptedFormat()).subscribeWith(new DisposableObserver<RequestResult>() {
             @Override
             public void onNext(RequestResult requestResult) {
                 List<NYTArticle> articles=requestResult.getNYTArticles();
-                Log.d(TAG, "onNext: "+articles.size());
                 if (articles.size()!=0){
                     sendNotification(context, articles.size());
                 }
@@ -45,9 +42,8 @@ public class SendNotificationReceiver extends BroadcastReceiver {
             @Override
             public void onComplete() { }
         });
-
-
     }
+
     private void sendNotification(Context context, int nbResponse){
         Intent intent1 = new Intent(context, NotificationIntentService.class);
         intent1.putExtra(String.valueOf(R.string.NbArticles), nbResponse);

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginStart"
         android:layout_marginTop="@dimen/marginTop"
-        android:textSize="@dimen/text_size"
+        android:textSize="@dimen/title_size"
         android:text="@string/category1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginStart"
         android:layout_marginTop="@dimen/marginTop"
-        android:textSize="@dimen/text_size"
+        android:textSize="@dimen/title_size"
         android:text="@string/category2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkBox_category_arts" />
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginStart"
         android:layout_marginTop="@dimen/marginTop"
-        android:textSize="@dimen/text_size"
+        android:textSize="@dimen/title_size"
         android:text="@string/category3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkBox_category_business" />
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginStart"
         android:layout_marginTop="@dimen/marginTop"
-        android:textSize="@dimen/text_size"
+        android:textSize="@dimen/title_size"
         android:text="@string/category4"
         app:layout_constraintStart_toStartOf="@id/guideline_middle"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginStart"
         android:layout_marginTop="@dimen/marginTop"
-        android:textSize="@dimen/text_size"
+        android:textSize="@dimen/title_size"
         android:text="@string/category5"
         app:layout_constraintStart_toStartOf="@+id/guideline_middle"
         app:layout_constraintTop_toBottomOf="@+id/checkBox_category_politics" />
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginStart"
         android:layout_marginTop="@dimen/marginTop"
-        android:textSize="@dimen/text_size"
+        android:textSize="@dimen/title_size"
         android:text="@string/category6"
         app:layout_constraintStart_toStartOf="@+id/guideline_middle"
         app:layout_constraintTop_toBottomOf="@+id/checkBox_category_sports" />

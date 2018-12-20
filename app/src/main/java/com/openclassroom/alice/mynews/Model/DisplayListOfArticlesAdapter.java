@@ -14,12 +14,12 @@ import com.openclassroom.alice.mynews.R;
 public class DisplayListOfArticlesAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
-    private String[] pageTitle;
+    private String[] mPageTitle;
 
     public DisplayListOfArticlesAdapter(FragmentManager mgr, Context context) {
         super(mgr);
         mContext=context;
-        pageTitle = mContext.getResources().getStringArray(R.array.TitleTabs);
+        mPageTitle = mContext.getResources().getStringArray(R.array.TitleTabs);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class DisplayListOfArticlesAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return pageTitle[position];
+        return mPageTitle[position];
     }
 
 }

@@ -16,15 +16,15 @@ import retrofit2.http.Query;
  * Created by Alice on 10 December 2018.
  */
 public interface NYTArticleService {
-    public static final String APIKey = "11f7a4aedd9a475a9d285fed115121da";
+    public static final String mAPIKey = "11f7a4aedd9a475a9d285fed115121da";
 
-    @GET("topstories/v2/home.json?api-key="+APIKey)
+    @GET("topstories/v2/home.json?api-key="+mAPIKey)
     Observable<RequestResult> getTopStories();
 
-    @GET("mostpopular/v2/mostviewed/all-sections/30.json?api-key="+APIKey)
+    @GET("mostpopular/v2/mostviewed/all-sections/30.json?api-key="+mAPIKey)
     Observable<RequestResult> getMostPopular();
 
-    @GET("topstories/v2/sports.json?api-key="+APIKey)
+    @GET("topstories/v2/sports.json?api-key="+mAPIKey)
     Observable<RequestResult> getSport();
 
     @GET("search/v2/articlesearch.json?facet_field=source&api-key=11f7a4aedd9a475a9d285fed115121da")

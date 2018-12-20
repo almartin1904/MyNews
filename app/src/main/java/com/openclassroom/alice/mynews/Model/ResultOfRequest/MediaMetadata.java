@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Alice on 20 December 2018.
+ * Created by Alice on 10 December 2018.
  */
 public class MediaMetadata {
     @SerializedName("url")

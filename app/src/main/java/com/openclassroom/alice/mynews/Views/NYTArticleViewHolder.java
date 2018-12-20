@@ -21,14 +21,15 @@ import butterknife.ButterKnife;
  * Created by Alice on 10 December 2018.
  */
 public class NYTArticleViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.fragment_article_item_title) TextView titleTxt;
-    @BindView(R.id.picture) ImageView picture;
-    @BindView(R.id.publishedDate) TextView dateTxt;
-    @BindView(R.id.section) TextView sectionTxt;
+
+    @BindView(R.id.fragment_article_item_title) TextView mTitleTxt;
+    @BindView(R.id.picture) ImageView mPicture;
+    @BindView(R.id.publishedDate) TextView mDateTxt;
+    @BindView(R.id.section) TextView mSectionTxt;
+
     private Context mContext;
 
     private static final String TAG = NYTArticleViewHolder.class.getSimpleName();
-
 
     NYTArticleViewHolder(View itemView, Context context) {
         super(itemView);
@@ -38,20 +39,20 @@ public class NYTArticleViewHolder extends RecyclerView.ViewHolder {
 
     void updateWithNYTArticle(NYTArticle mNYTArticle, RequestManager glide){
 
-        this.titleTxt.setText(mNYTArticle.getTitle());
-        this.dateTxt.setText(mNYTArticle.getPublishedDate());
-        this.sectionTxt.setText(mNYTArticle.getSection());
+        this.mTitleTxt.setText(mNYTArticle.getTitle());
+        this.mDateTxt.setText(mNYTArticle.getPublishedDate());
+        this.mSectionTxt.setText(mNYTArticle.getSectionAndSubsection());
 
         try {
-            glide.load(mNYTArticle.getImageURL()).apply(RequestOptions.centerCropTransform()).into(picture);
+            glide.load(mNYTArticle.getImageURL()).apply(RequestOptions.centerCropTransform()).into(mPicture);
         } catch (Exception e){
             Log.e(TAG, "updateWithNYTArticle: " + e.getMessage());
         }
 
         if (alreadyReadArticle(mNYTArticle.getTitle())){
-            this.titleTxt.setTextColor(mContext.getResources().getColor(R.color.colorAlreadyRead));
+            this.mTitleTxt.setTextColor(mContext.getResources().getColor(R.color.colorAlreadyRead));
         } else {
-            this.titleTxt.setTextColor(Color.BLACK);
+            this.mTitleTxt.setTextColor(Color.BLACK);
         }
     }
 

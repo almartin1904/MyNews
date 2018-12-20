@@ -12,7 +12,7 @@
         android:layout_marginStart="@dimen/marginStart"
         android:layout_marginEnd="@dimen/marginEnd"
         android:layout_marginTop="@dimen/marginTop"
-        android:textSize="@dimen/text_size"
+        android:textSize="@dimen/title_size"
         android:hint="@string/keyword_search" />
 
 </FrameLayout>

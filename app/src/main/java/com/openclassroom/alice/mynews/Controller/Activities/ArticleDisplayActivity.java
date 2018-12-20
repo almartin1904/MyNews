@@ -17,8 +17,8 @@ public class ArticleDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_display);
-        configureAndShowDisplayArticleFragment();
-        configureToolbar();
+        this.configureAndShowDisplayArticleFragment();
+        this.configureToolbar();
     }
 
     // -------------------
@@ -26,9 +26,7 @@ public class ArticleDisplayActivity extends AppCompatActivity {
     // -------------------
 
     private void configureAndShowDisplayArticleFragment(){
-
         mArticleDisplayFragment = (ArticleDisplayFragment) getSupportFragmentManager().findFragmentById(R.id.activity_article_display_frame_layout);
-
         if (mArticleDisplayFragment == null) {
             mArticleDisplayFragment = new ArticleDisplayFragment();
             getSupportFragmentManager().beginTransaction()

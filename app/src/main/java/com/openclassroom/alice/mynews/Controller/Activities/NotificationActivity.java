@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -28,25 +27,29 @@ public class NotificationActivity extends AppCompatActivity {
 
     KeyWordFragment mKeyWordFragment;
     CategoriesFragment mCategoriesFragment;
-    Switch notificationSwitch;
+    Switch mNotificationSwitch;
     SharedPreferences mPreferences;
     SearchCriteria mSearchCriteria;
 
 
     public static final String KEY_PREFERENCES = "KEY_PREFERENCES";
     public static final String IS_CHECKED = "IS_CHECKED";
-    private static final String TAG = "NotificationActivityTAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
+        this.configureToolbar();
+        this.configureAndShowFragments();
+        mPreferences = getSharedPreferences(KEY_PREFERENCES, MODE_PRIVATE);
 
-        notificationSwitch = findViewById(R.id.notification_button);
-        notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mNotificationSwitch = findViewById(R.id.notification_button);
+        mNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //Display Alarm
                 if (isChecked){
+                    //If notification criterias are not Ok so send message error
                     if (mKeyWordFragment.searchNOk() || mCategoriesFragment.searchNOk()){
                         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(NotificationActivity.this);
                         builder.setTitle(R.string.ErrorTitle);
@@ -57,25 +60,35 @@ public class NotificationActivity extends AppCompatActivity {
                         });
                         builder.setMessage(R.string.missFilterMessage);
                         builder.show();
-                        notificationSwitch.setChecked(false);
+                        mNotificationSwitch.setChecked(false);
                     } else {
+                        //notification criterias are ok so set alarm
                         mCategoriesFragment.disableChange(true);
                         mKeyWordFragment.setEnabledKeyWord(true);
                         alarmSet();
                     }
+                //Cancel alarm
                 } else {
                     mCategoriesFragment.disableChange(false);
                     mKeyWordFragment.setEnabledKeyWord(false);
                     alarmOff();
                 }
                 saveState();
-
             }
         });
-        mPreferences = getSharedPreferences(KEY_PREFERENCES, MODE_PRIVATE);
-        configureToolbar();
-        configureAndShowFragments();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCategoriesFragment.displayCheckBoxState(mPreferences);
+        mKeyWordFragment.displayKeyWordState(mPreferences);
+        mNotificationSwitch.setChecked(mPreferences.getBoolean(IS_CHECKED, false));
+    }
+
+    //------------------
+    // Configuration
+    //------------------
 
     private void configureToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -84,14 +97,6 @@ public class NotificationActivity extends AppCompatActivity {
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mCategoriesFragment.displayCheckBoxState(mPreferences);
-        mKeyWordFragment.displayKeyWordState(mPreferences);
-        notificationSwitch.setChecked(mPreferences.getBoolean(IS_CHECKED, false));
     }
 
     private void configureAndShowFragments(){
@@ -113,13 +118,16 @@ public class NotificationActivity extends AppCompatActivity {
         }
     }
 
+    //--------------------
+    // Alarm
+    //--------------------
+
     private void alarmSet(){
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 18);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
-        Log.d(TAG, "onPause: alarm set");
         AlarmManager alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(NotificationActivity.this, SendNotificationReceiver.class);
         mSearchCriteria = createSearchCriteria();
@@ -129,27 +137,29 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void alarmOff(){
-        Log.d(TAG, "onPause: alarm off");
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent myIntent = new Intent(getApplicationContext(), SendNotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, myIntent, 0);
         alarmManager.cancel(pendingIntent);
     }
 
+    //------------------------------
+    // Save notifications criterias
+    //------------------------------
     private void saveState() {
-        mPreferences.edit().putBoolean(IS_CHECKED, notificationSwitch.isChecked()).apply();
+        mPreferences.edit().putBoolean(IS_CHECKED, mNotificationSwitch.isChecked()).apply();
         mKeyWordFragment.saveKeyWordState(mPreferences);
         mCategoriesFragment.saveCheckBoxState(mPreferences);
     }
 
+    //-----------------------------
+    // Create criterias
+    //-----------------------------
     private SearchCriteria createSearchCriteria() {
-
         String queryTerm = mKeyWordFragment.getKeyKeyWord();
         List<String> categories=mCategoriesFragment.getListOfCategories();
-
         String beginDate = getCurrentDate();
         String endDate = getCurrentDate();
-
         return new SearchCriteria(queryTerm, beginDate, endDate, categories);
     }
 

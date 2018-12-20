@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by Alice on 20 December 2018.
+ * Created by Alice on 12 December 2018.
  */
 public class SearchCriteria implements Serializable {
     private String mSearchTerm;
@@ -13,7 +13,10 @@ public class SearchCriteria implements Serializable {
     private String mEndDate;
     private List<String> mCategories;
 
+    //--------------
     //CONSTRUCTOR
+    //--------------
+
     public SearchCriteria(String searchTerm, String beginDate, String endDate, List<String> categories){
         this.mSearchTerm = searchTerm;
         this.mBeginDate = beginDate;
@@ -21,7 +24,9 @@ public class SearchCriteria implements Serializable {
         this.mCategories = categories;
     }
 
+    //-------------------
     //GETTER AND SETTER
+    //-------------------
 
     public String getSearchTerm() {
         return mSearchTerm;
@@ -55,7 +60,9 @@ public class SearchCriteria implements Serializable {
         mCategories = categories;
     }
 
+    //-----------------------------
     //MODIFY FORMAT OF PARAMETERS
+    //-----------------------------
 
     public String getEndDateWithAdaptedFormat() {
 
@@ -88,7 +95,9 @@ public class SearchCriteria implements Serializable {
         return categories.toString();
     }
 
+    //----------------
     //CHECK FORMAT
+    //----------------
 
     public boolean dateFormatIsOk(){
         return testDateFormat(mBeginDate) && testDateFormat(mEndDate);

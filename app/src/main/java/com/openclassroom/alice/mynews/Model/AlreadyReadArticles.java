@@ -44,7 +44,7 @@ public class AlreadyReadArticles {
     //---------------------------
 
 
-    public List<String> loadArticles() {
+    private List<String> loadArticles() {
         String articlesAsString = mPreferences.getString(LIST_OF_ARTICLES,null);
         List<String> articlesAsList;
 
@@ -57,7 +57,7 @@ public class AlreadyReadArticles {
         return articlesAsList;
     }
 
-    public void saveArticles(List<String> articles){
+    private void saveArticles(List<String> articles){
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         mPreferences.edit().putString(LIST_OF_ARTICLES, gson.toJson(articles)).apply();
@@ -72,9 +72,5 @@ public class AlreadyReadArticles {
         List<String> readTitles = loadArticles();
         readTitles.add(newTitle);
         saveArticles(readTitles);
-    }
-
-    public int sizeList(){
-        return loadArticles().size();
     }
 }

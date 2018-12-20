@@ -3,8 +3,8 @@ package com.openclassroom.alice.mynews.Controller.Fragments.SearchFilterFragment
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +17,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.annotations.NonNull;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class CategoriesFragment extends Fragment {
-
-
-    public static final String TAG="CategoriesFragment";
 
     public static final String KEY_ARTS = "KEY_ARTS";
     public static final String KEY_BUSINESS = "KEY_BUSINESS";
@@ -34,68 +27,66 @@ public class CategoriesFragment extends Fragment {
     public static final String KEY_SPORTS = "KEY_SPORTS";
     public static final String KEY_TRAVEL = "KEY_TRAVEL";
 
+    @BindView(R.id.checkBox_category_arts) CheckBox mArtsCb;
+    @BindView(R.id.checkBox_category_business) CheckBox mBusinessCb;
+    @BindView(R.id.checkBox_category_entrepreneurs) CheckBox mEntrepreneursCb;
+    @BindView(R.id.checkBox_category_politics) CheckBox mPoliticsCb;
+    @BindView(R.id.checkBox_category_sports) CheckBox mSportsCb;
+    @BindView(R.id.checkBox_category_travel) CheckBox mTravelCb;
+
     public CategoriesFragment() {
         // Required empty public constructor
     }
-
-    @BindView(R.id.checkBox_category_arts) CheckBox artsCb;
-    @BindView(R.id.checkBox_category_business) CheckBox businessCb;
-    @BindView(R.id.checkBox_category_entrepreneurs) CheckBox entrepreneursCb;
-    @BindView(R.id.checkBox_category_politics) CheckBox politicsCb;
-    @BindView(R.id.checkBox_category_sports) CheckBox sportsCb;
-    @BindView(R.id.checkBox_category_travel) CheckBox travelCb;
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_categories, container, false);
-        Log.d(TAG, "onCreateView: ");
         ButterKnife.bind(this, view);
         return view;
     }
 
     public void saveCheckBoxState(SharedPreferences mPreferences){
-        mPreferences.edit().putBoolean(KEY_ARTS, artsCb.isChecked()).apply();
-        mPreferences.edit().putBoolean(KEY_BUSINESS, businessCb.isChecked()).apply();
-        mPreferences.edit().putBoolean(KEY_ENTREPRENEURS, entrepreneursCb.isChecked()).apply();
-        mPreferences.edit().putBoolean(KEY_POLITICS, politicsCb.isChecked()).apply();
-        mPreferences.edit().putBoolean(KEY_SPORTS, sportsCb.isChecked()).apply();
-        mPreferences.edit().putBoolean(KEY_TRAVEL, travelCb.isChecked()).apply();
+        mPreferences.edit().putBoolean(KEY_ARTS, mArtsCb.isChecked()).apply();
+        mPreferences.edit().putBoolean(KEY_BUSINESS, mBusinessCb.isChecked()).apply();
+        mPreferences.edit().putBoolean(KEY_ENTREPRENEURS, mEntrepreneursCb.isChecked()).apply();
+        mPreferences.edit().putBoolean(KEY_POLITICS, mPoliticsCb.isChecked()).apply();
+        mPreferences.edit().putBoolean(KEY_SPORTS, mSportsCb.isChecked()).apply();
+        mPreferences.edit().putBoolean(KEY_TRAVEL, mTravelCb.isChecked()).apply();
     }
 
     public void displayCheckBoxState(SharedPreferences mPreferences){
-        artsCb.setChecked(mPreferences.getBoolean(KEY_ARTS, true));
-        businessCb.setChecked(mPreferences.getBoolean(KEY_BUSINESS, false));
-        entrepreneursCb.setChecked(mPreferences.getBoolean(KEY_ENTREPRENEURS, false));
-        politicsCb.setChecked(mPreferences.getBoolean(KEY_POLITICS, false));
-        sportsCb.setChecked(mPreferences.getBoolean(KEY_SPORTS, true));
-        travelCb.setChecked(mPreferences.getBoolean(KEY_TRAVEL, true));
+        mArtsCb.setChecked(mPreferences.getBoolean(KEY_ARTS, true));
+        mBusinessCb.setChecked(mPreferences.getBoolean(KEY_BUSINESS, false));
+        mEntrepreneursCb.setChecked(mPreferences.getBoolean(KEY_ENTREPRENEURS, false));
+        mPoliticsCb.setChecked(mPreferences.getBoolean(KEY_POLITICS, false));
+        mSportsCb.setChecked(mPreferences.getBoolean(KEY_SPORTS, true));
+        mTravelCb.setChecked(mPreferences.getBoolean(KEY_TRAVEL, true));
     }
 
     public List<String> getListOfCategories(){
         List<String> categories=new ArrayList<>();
-        if (artsCb.isChecked()) {categories.add(artsCb.getText().toString());}
-        if (businessCb.isChecked()) {categories.add(businessCb.getText().toString());}
-        if (entrepreneursCb.isChecked()) {categories.add(entrepreneursCb.getText().toString());}
-        if (politicsCb.isChecked()) {categories.add(politicsCb.getText().toString());}
-        if (sportsCb.isChecked()) {categories.add(sportsCb.getText().toString());}
-        if (travelCb.isChecked()) {categories.add(travelCb.getText().toString());}
+        if (mArtsCb.isChecked()) {categories.add(mArtsCb.getText().toString());}
+        if (mBusinessCb.isChecked()) {categories.add(mBusinessCb.getText().toString());}
+        if (mEntrepreneursCb.isChecked()) {categories.add(mEntrepreneursCb.getText().toString());}
+        if (mPoliticsCb.isChecked()) {categories.add(mPoliticsCb.getText().toString());}
+        if (mSportsCb.isChecked()) {categories.add(mSportsCb.getText().toString());}
+        if (mTravelCb.isChecked()) {categories.add(mTravelCb.getText().toString());}
         return categories;
     }
 
     public boolean searchNOk() {
-        return  !(artsCb.isChecked() || businessCb.isChecked() || entrepreneursCb.isChecked() || politicsCb.isChecked() || sportsCb.isChecked() || travelCb.isChecked());
+        return  !(mArtsCb.isChecked() || mBusinessCb.isChecked() || mEntrepreneursCb.isChecked() || mPoliticsCb.isChecked() || mSportsCb.isChecked() || mTravelCb.isChecked());
     }
 
     public void disableChange(Boolean bool){
-        artsCb.setEnabled(!bool);
-        businessCb.setEnabled(!bool);
-        entrepreneursCb.setEnabled(!bool);
-        politicsCb.setEnabled(!bool);
-        sportsCb.setEnabled(!bool);
-        travelCb.setEnabled(!bool);
+        mArtsCb.setEnabled(!bool);
+        mBusinessCb.setEnabled(!bool);
+        mEntrepreneursCb.setEnabled(!bool);
+        mPoliticsCb.setEnabled(!bool);
+        mSportsCb.setEnabled(!bool);
+        mTravelCb.setEnabled(!bool);
     }
 
 }

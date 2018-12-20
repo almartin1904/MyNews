@@ -31,9 +31,13 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
-        configureAndShowFragments();
-        configureToolbar();
+        this.configureAndShowFragments();
+        this.configureToolbar();
     }
+
+    //-------------------
+    // CONFIGURATION
+    //-------------------
 
     private void configureToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -70,28 +74,27 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    //------------------------
+    // LAUNCH SEARCH
+    //------------------------
+
     @OnClick(R.id.search_btn)
     public void submit(View view) {
         SearchCriteria searchCriteria = createSearchCriteria();
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.ErrorTitle);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        //Test if dates format is ok
         if (!searchCriteria.dateFormatIsOk()){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.ErrorTitle);
-            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
             builder.setMessage(R.string.wrongDateFormatMessage);
             builder.show();
         } else {
+            //Search criterias are not Ok
             if (mCategoriesFragment.searchNOk() && mKeyWordFragment.searchNOk())
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.ErrorTitle);
-                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
                 builder.setMessage(R.string.missFilterMessage);
                 builder.show();
             }
@@ -105,14 +108,10 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private SearchCriteria createSearchCriteria() {
-
         String queryTerm = mKeyWordFragment.getKeyKeyWord();
         String beginDate = mDatesFragment.getBeginDate();
         String endDate = mDatesFragment.getEndDate();
         List<String> categories=mCategoriesFragment.getListOfCategories();
-
         return new SearchCriteria(queryTerm,beginDate, endDate, categories);
     }
-
-
 }
