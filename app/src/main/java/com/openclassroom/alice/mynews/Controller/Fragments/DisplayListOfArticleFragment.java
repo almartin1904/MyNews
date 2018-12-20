@@ -1,20 +1,24 @@
 package com.openclassroom.alice.mynews.Controller.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.RequestResult;
 import com.openclassroom.alice.mynews.R;
+import com.openclassroom.alice.mynews.Utils.ItemClickSupport;
 import com.openclassroom.alice.mynews.Utils.NYTArticleStreams;
 import com.openclassroom.alice.mynews.Views.NYTArticleAdapter;
 
@@ -61,6 +65,7 @@ public class DisplayListOfArticleFragment extends Fragment {
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
         this.configureSwipeRefreshLayout();
+        this.configureOnClickRecyclerView();
         return result;
     }
 
@@ -159,6 +164,17 @@ public class DisplayListOfArticleFragment extends Fragment {
                 executeHttpRequestWithRetrofit();
             }
         });
+    }
+
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(mRecyclerView, R.layout.fragment_article_list_item)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        NYTArticle mNYTArticle = mAdapter.getNYTArticle(position);
+                        Toast.makeText(getContext(), mNYTArticle.getTitle(), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 
