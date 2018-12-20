@@ -35,4 +35,12 @@ public class NYTArticleStreams {
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
     }
+
+    public static Observable<RequestResult> streamFetchSearchArticle (String queryTerm, String section, String beginDate, String endDate){
+        NYTArticleService nytArticleService = NYTArticleService.retrofit.create(NYTArticleService.class);
+        return nytArticleService.getSearchArticle(queryTerm, section, beginDate, endDate)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(10, TimeUnit.SECONDS);
+    }
 }

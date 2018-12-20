@@ -9,6 +9,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 
 /**
@@ -25,6 +26,9 @@ public interface NYTArticleService {
 
     @GET("topstories/v2/sports.json?api-key="+APIKey)
     Observable<RequestResult> getSport();
+
+    @GET("search/v2/articlesearch.json?facet_field=source&api-key=11f7a4aedd9a475a9d285fed115121da")
+    Observable<RequestResult> getSearchArticle(@Query("q") String queryTerm, @Query("fq") String section, @Query("begin_date") String beginDate, @Query("end_") String endDate);
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://api.nytimes.com/svc/")
