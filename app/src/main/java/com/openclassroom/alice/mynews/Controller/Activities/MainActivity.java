@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Notification", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_activity_main_search:
-                Toast.makeText(this, "Search", Toast.LENGTH_LONG).show();
+                Intent searchActivity = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(searchActivity);
                 return true;
             case R.id.menu_activity_main_help:
                 Toast.makeText(this, "Help", Toast.LENGTH_LONG).show();

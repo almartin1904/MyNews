@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Controller.Activities.SearchActivity">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frame_layout_keyword"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frame_layout_dates"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frame_layout_categories"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_btn"
+        android:text="@string/searchButton"
+        android:layout_marginTop="@dimen/marginTop"
+        android:layout_marginStart="@dimen/marginStart"
+        android:layout_marginEnd="@dimen/marginEnd"
+        android:textSize="@dimen/title_size"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"/>
+</LinearLayout>

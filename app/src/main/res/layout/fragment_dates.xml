@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".Controller.Fragments.SearchFilterFragments.DatesFragment">
+
+    <TextView
+        android:id="@+id/begin_date_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginStart"
+        android:layout_marginTop="@dimen/marginTop"
+        android:textSize="@dimen/text_size"
+        android:text="@string/beginDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/date_begin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginStart"
+        android:layout_marginTop="@dimen/date_marginTop"
+        android:layout_marginEnd="@dimen/marginEnd"
+        android:textSize="@dimen/title_size"
+        app:layout_constraintEnd_toStartOf="@+id/guideline50"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/guideline0"
+        app:layout_constraintTop_toTopOf="@id/begin_date_txt"
+        android:inputType="date"
+        tools:ignore="LabelFor" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/begin_date_button"
+        android:layout_alignTop="@id/date_begin"
+        android:layout_alignBottom="@id/date_begin"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:src="@drawable/arrow_drop_down_black_24x24"
+        app:layout_constraintBottom_toBottomOf="@+id/date_begin"
+        app:layout_constraintEnd_toEndOf="@+id/date_begin"
+        app:layout_constraintTop_toTopOf="@+id/date_begin"
+        app:layout_constraintVertical_bias="0.38"
+        android:contentDescription="@string/arrow" />
+
+    <TextView
+        android:id="@+id/end_date_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginStart"
+        android:layout_marginTop="@dimen/marginTop"
+        android:textSize="@dimen/text_size"
+        android:text="@string/endDate"
+        app:layout_constraintStart_toStartOf="@+id/guideline50"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/date_end"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginStart"
+        android:layout_marginTop="@dimen/date_marginTop"
+        android:layout_marginEnd="@dimen/marginEnd"
+        app:layout_constraintEnd_toStartOf="@+id/guideline100"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline50"
+        app:layout_constraintTop_toTopOf="@id/end_date_txt"
+        android:inputType="date"
+        tools:ignore="LabelFor" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/end_date_button"
+        android:background="@null"
+        android:src="@drawable/arrow_drop_down_black_24x24"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/date_end"
+        app:layout_constraintEnd_toEndOf="@+id/date_end"
+        app:layout_constraintTop_toTopOf="@+id/date_end"
+        app:layout_constraintVertical_bias="0.38"
+        android:contentDescription="@string/arrow" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+
+</android.support.constraint.ConstraintLayout>

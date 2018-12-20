@@ -257,7 +257,6 @@ public class NYTArticle {
             section=sectionName;
         }
         if (!subsection.equals("")){
-            //Log.d(TAG, "getSectionAndSubsection: "+subsection+"\"");
             return section + ">" + subsection;
         } else
             return section;
