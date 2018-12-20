@@ -14,4 +14,7 @@
         <item>Sport</item>
     </string-array>
 
+    <!--Display Article-->
+    <string name="URL">URL</string>
+
 </resources>

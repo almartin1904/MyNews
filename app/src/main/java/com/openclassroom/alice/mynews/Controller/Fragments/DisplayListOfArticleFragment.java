@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.openclassroom.alice.mynews.Controller.Activities.ArticleDisplayActivity;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.RequestResult;
 import com.openclassroom.alice.mynews.R;
@@ -172,7 +173,9 @@ public class DisplayListOfArticleFragment extends Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         NYTArticle mNYTArticle = mAdapter.getNYTArticle(position);
-                        Toast.makeText(getContext(), mNYTArticle.getTitle(), Toast.LENGTH_LONG).show();
+                        Intent displayArticleActivity = new Intent(getActivity(), ArticleDisplayActivity.class);
+                        displayArticleActivity.putExtra(String.valueOf(R.string.URL), mNYTArticle.getUrl());
+                        startActivityForResult(displayArticleActivity, 0);
                     }
                 });
     }
