@@ -92,7 +92,7 @@ public class SearchActivity extends AppCompatActivity {
             builder.setMessage(R.string.wrongDateFormatMessage);
             builder.show();
         } else {
-            if (mDatesFragment.compareDates()){
+            if (searchCriteria.compareDates()){
                 builder.setMessage(R.string.comparedDates);
                 builder.show();
             } else {

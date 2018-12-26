@@ -1,7 +1,11 @@
 package com.openclassroom.alice.mynews.Model;
 
+import android.annotation.SuppressLint;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -151,5 +155,21 @@ public class SearchCriteria implements Serializable {
         int month = Calendar.getInstance().get(Calendar.MONTH);
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         return String.valueOf(day)+"/"+String.valueOf(month)+"/"+String.valueOf(year);
+    }
+
+    public boolean compareDates(){
+        if (!mBeginDate.equals("") && !mEndDate.equals("")){
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date beginDate = formatter.parse(getBeginDate());
+                Date endDate = formatter.parse(getEndDate());
+                return beginDate.compareTo(endDate)>0;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        } else {
+            return true;
+        }
     }
 }

@@ -56,20 +56,38 @@ public class SearchCriteriaTest {
     }
 
     @Test
-    public void TestDateFormatIsOkwithNoDate(){
+    public void TestDateFormatIsOkWithNoDate(){
         SearchCriteria searchCriteria = new SearchCriteria("France", "", "", new ArrayList<String>());
         assertTrue(searchCriteria.dateFormatIsOk());
     }
 
     @Test
-    public void TestDateFormatIsOkwithTwoDateOk(){
+    public void TestDateFormatIsOkWithTwoDateOk(){
         SearchCriteria searchCriteria = new SearchCriteria("France", "19/04/1993", "10/10/1996", new ArrayList<String>());
         assertTrue(searchCriteria.dateFormatIsOk());
     }
 
     @Test
-    public void TestDateFormatIsOkwithOneDateOk(){
+    public void TestDateFormatIsOkWithOneDateOk(){
         SearchCriteria searchCriteria = new SearchCriteria("France", "19/04/1993", "10/10/96", new ArrayList<String>());
         assertFalse(searchCriteria.dateFormatIsOk());
+    }
+
+    @Test
+    public void TestCompareDatesOk(){
+        SearchCriteria searchCriteria = new SearchCriteria("", "12/12/2015", "26/12/2018", new ArrayList<String>());
+        assertTrue(searchCriteria.compareDates());
+    }
+
+    @Test
+    public void TestCompareDatesNOk(){
+        SearchCriteria searchCriteria = new SearchCriteria("", "12/12/2015", "26/12/2008", new ArrayList<String>());
+        assertFalse(searchCriteria.compareDates());
+    }
+
+    @Test
+    public void TestCompareDatesEquals(){
+        SearchCriteria searchCriteria = new SearchCriteria("", "12/12/2015", "12/12/2015", new ArrayList<String>());
+        assertTrue(searchCriteria.compareDates());
     }
 }

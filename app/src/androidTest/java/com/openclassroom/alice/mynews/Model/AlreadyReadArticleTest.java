@@ -1,13 +1,10 @@
 package com.openclassroom.alice.mynews.Model;
 
-import com.openclassroom.alice.mynews.Model.AlreadyReadArticles;
-
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 /**
