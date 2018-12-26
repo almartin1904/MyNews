@@ -92,17 +92,22 @@ public class SearchActivity extends AppCompatActivity {
             builder.setMessage(R.string.wrongDateFormatMessage);
             builder.show();
         } else {
-            //Search criterias are not Ok
-            if (mCategoriesFragment.searchNOk() && mKeyWordFragment.searchNOk())
-            {
-                builder.setMessage(R.string.missFilterMessage);
+            if (mDatesFragment.compareDates()){
+                builder.setMessage(R.string.comparedDates);
                 builder.show();
-            }
-            else {
-                //search criterias are Ok
-                Intent resultActivity = new Intent(SearchActivity.this, SearchResultActivity.class);
-                resultActivity.putExtra(String.valueOf(R.string.SearchCriteriaExtra), searchCriteria);
-                startActivity(resultActivity);
+            } else {
+                //Search criterias are not Ok
+                if (mCategoriesFragment.searchNOk() || mKeyWordFragment.searchNOk())
+                {
+                    builder.setMessage(R.string.missFilterMessage);
+                    builder.show();
+                }
+                else {
+                    //search criterias are Ok
+                    Intent resultActivity = new Intent(SearchActivity.this, SearchResultActivity.class);
+                    resultActivity.putExtra(String.valueOf(R.string.SearchCriteriaExtra), searchCriteria);
+                    startActivity(resultActivity);
+                }
             }
         }
     }

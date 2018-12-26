@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -31,9 +32,9 @@ public class NotificationActivity extends AppCompatActivity {
     SharedPreferences mPreferences;
     SearchCriteria mSearchCriteria;
 
-
     public static final String KEY_PREFERENCES = "KEY_PREFERENCES";
     public static final String IS_CHECKED = "IS_CHECKED";
+    private static final String TAG = "NotifActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class NotificationActivity extends AppCompatActivity {
                         builder.setTitle(R.string.ErrorTitle);
                         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
+
                             }
                         });
                         builder.setMessage(R.string.missFilterMessage);
@@ -127,6 +128,8 @@ public class NotificationActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, 18);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
+
+        Log.d(TAG, "alarmSet: ");
 
         AlarmManager alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(NotificationActivity.this, SendNotificationReceiver.class);

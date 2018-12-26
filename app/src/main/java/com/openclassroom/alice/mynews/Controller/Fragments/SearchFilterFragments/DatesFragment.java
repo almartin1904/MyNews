@@ -1,6 +1,7 @@
 package com.openclassroom.alice.mynews.Controller.Fragments.SearchFilterFragments;
 
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,7 +16,9 @@ import android.widget.EditText;
 
 import com.openclassroom.alice.mynews.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,7 +79,15 @@ public class DatesFragment extends Fragment  {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month=month+1;
-                String date = dayOfMonth + "/" + month + "/" + year;
+                String stringMonth=String.valueOf(month);
+                if (month<10){
+                    stringMonth="0"+stringMonth;
+                }
+                String stringDay=String.valueOf(dayOfMonth);
+                if (dayOfMonth<10){
+                    stringDay="0"+stringDay;
+                }
+                String date = stringDay + "/" + stringMonth + "/" + year;
                 if (last_button_clicked==1){
                     mBeginDateEditText.setText(date);
                 }
@@ -94,6 +105,22 @@ public class DatesFragment extends Fragment  {
 
     public String getEndDate(){
         return mEndDateEditText.getText().toString();
+    }
+
+    public boolean compareDates(){
+        if (!getBeginDate().equals("") && !getEndDate().equals("")){
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date beginDate = formatter.parse(getBeginDate());
+                Date endDate = formatter.parse(getEndDate());
+                return beginDate.compareTo(endDate)>0;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        } else {
+            return true;
+        }
     }
 
 }

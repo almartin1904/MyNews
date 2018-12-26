@@ -3,7 +3,6 @@ package com.openclassroom.alice.mynews.Controller;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.RequestResult;

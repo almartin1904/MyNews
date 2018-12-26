@@ -37,8 +37,9 @@
 
     <!--Alert Dialog-->
     <string name="ErrorTitle">Error</string>
-    <string name="missFilterMessage">You should enter at least one query term and checked one category</string>
+    <string name="missFilterMessage">You should enter at least one query term and check one category</string>
     <string name="wrongDateFormatMessage">Wrong dates format</string>
+    <string name="comparedDates">End date is anterior to begin date</string>
 
     <!--Notifications-->
     <string name="notifOnOff">Enable notification (once/day)</string>
