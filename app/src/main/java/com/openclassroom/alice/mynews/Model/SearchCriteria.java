@@ -17,15 +17,30 @@ public class SearchCriteria implements Serializable {
     private String mEndDate;
     private List<String> mCategories;
 
+    public static final String TODAY = "today";
+
     //--------------
     //CONSTRUCTOR
     //--------------
 
     public SearchCriteria(String searchTerm, String beginDate, String endDate, List<String> categories){
         this.mSearchTerm = searchTerm;
-        this.mBeginDate = beginDate;
-        this.mEndDate = endDate;
         this.mCategories = categories;
+        switch (beginDate){
+            case TODAY:
+                mBeginDate=getCurrentDate();
+                break;
+            case "":
+                mBeginDate="01/01/1800";
+                break;
+            default:
+                mBeginDate=beginDate;
+        }
+        if (endDate.equals(TODAY) || endDate.equals("")){
+            this.mEndDate=getCurrentDate();
+        } else {
+            this.mEndDate=endDate;
+        }
     }
 
     //-------------------
@@ -69,17 +84,10 @@ public class SearchCriteria implements Serializable {
     //-----------------------------
 
     public String getEndDateWithAdaptedFormat() {
-
-        if (mEndDate.equals("")){
-            mEndDate=getCurrentDate();
-        }
         return adaptDateFormat(mEndDate);
     }
 
     public String getBeginDateWithAdaptedFormat() {
-        if (mBeginDate.equals("")){
-            mBeginDate="01/01/1800";
-        }
         return adaptDateFormat(mBeginDate);
     }
 
@@ -163,7 +171,7 @@ public class SearchCriteria implements Serializable {
             try {
                 Date beginDate = formatter.parse(getBeginDate());
                 Date endDate = formatter.parse(getEndDate());
-                return beginDate.compareTo(endDate)>0;
+                return beginDate.compareTo(endDate)<=0;
             } catch (Exception e) {
                 e.printStackTrace();
             }

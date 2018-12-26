@@ -48,7 +48,6 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    //todo : is it posible to avoid copy-paste
     private void configureAndShowFragments(){
         mKeyWordFragment = (KeyWordFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_keyword);
         mDatesFragment = (DatesFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_dates);
@@ -96,14 +95,14 @@ public class SearchActivity extends AppCompatActivity {
                 builder.setMessage(R.string.comparedDates);
                 builder.show();
             } else {
-                //Search criterias are not Ok
-                if (mCategoriesFragment.searchNOk() || mKeyWordFragment.searchNOk())
+                //Search criteria are not Ok
+                if (searchCriteria.getSearchTerm().equals("") || searchCriteria.getCategories().isEmpty())
                 {
                     builder.setMessage(R.string.missFilterMessage);
                     builder.show();
                 }
                 else {
-                    //search criterias are Ok
+                    //search criteria are Ok
                     Intent resultActivity = new Intent(SearchActivity.this, SearchResultActivity.class);
                     resultActivity.putExtra(String.valueOf(R.string.SearchCriteriaExtra), searchCriteria);
                     startActivity(resultActivity);

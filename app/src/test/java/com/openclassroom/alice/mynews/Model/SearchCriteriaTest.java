@@ -1,5 +1,7 @@
 package com.openclassroom.alice.mynews.Model;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -22,9 +24,9 @@ public class SearchCriteriaTest {
         categories.add("Arts");
         categories.add("Business");
         SearchCriteria searchCriteria = new SearchCriteria("France", "19/04/1993", "10/10/1996", categories);
-        assertEquals(searchCriteria.getSearchTerm(), "France");
-        assertEquals("19930419", searchCriteria.getBeginDate());
-        assertEquals("19961010", searchCriteria.getEndDate());
+        assertEquals("France", searchCriteria.getSearchTerm());
+        assertEquals("19930419", searchCriteria.getBeginDateWithAdaptedFormat());
+        assertEquals("19961010", searchCriteria.getEndDateWithAdaptedFormat());
         assertEquals("Arts", searchCriteria.getCategories().get(0));
     }
 

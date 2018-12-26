@@ -43,6 +43,7 @@ public class NotificationActivity extends AppCompatActivity {
         this.configureToolbar();
         this.configureAndShowFragments();
         mPreferences = getSharedPreferences(KEY_PREFERENCES, MODE_PRIVATE);
+        mSearchCriteria = createSearchCriteria();
 
         mNotificationSwitch = findViewById(R.id.notification_button);
         mNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -51,7 +52,7 @@ public class NotificationActivity extends AppCompatActivity {
                 //Display Alarm
                 if (isChecked){
                     //If notification criterias are not Ok so send message error
-                    if (mKeyWordFragment.searchNOk() || mCategoriesFragment.searchNOk()){
+                    if (mSearchCriteria.getSearchTerm().equals("") || mSearchCriteria.getCategories().isEmpty()){
                         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(NotificationActivity.this);
                         builder.setTitle(R.string.ErrorTitle);
                         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -133,7 +134,6 @@ public class NotificationActivity extends AppCompatActivity {
 
         AlarmManager alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(NotificationActivity.this, SendNotificationReceiver.class);
-        mSearchCriteria = createSearchCriteria();
         intent.putExtra(String.valueOf(R.string.SearchCriteriaExtra), mSearchCriteria);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(NotificationActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
@@ -147,7 +147,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     //------------------------------
-    // Save notifications criterias
+    // Save notifications criteria
     //------------------------------
     private void saveState() {
         mPreferences.edit().putBoolean(IS_CHECKED, mNotificationSwitch.isChecked()).apply();
@@ -156,22 +156,12 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     //-----------------------------
-    // Create criterias
+    // Create criteria
     //-----------------------------
     private SearchCriteria createSearchCriteria() {
         String queryTerm = mKeyWordFragment.getKeyKeyWord();
         List<String> categories=mCategoriesFragment.getListOfCategories();
-        String beginDate = getCurrentDate();
-        String endDate = getCurrentDate();
-        return new SearchCriteria(queryTerm, beginDate, endDate, categories);
+        return new SearchCriteria(queryTerm, SearchCriteria.TODAY, SearchCriteria.TODAY, categories);
     }
-
-    private String getCurrentDate(){
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        int month = Calendar.getInstance().get(Calendar.MONTH)+1;
-        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        return String.valueOf(day)+"/"+String.valueOf(month)+"/"+String.valueOf(year);
-    }
-
 
 }
