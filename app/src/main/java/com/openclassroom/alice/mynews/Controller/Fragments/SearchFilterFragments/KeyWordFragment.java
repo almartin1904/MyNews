@@ -46,10 +46,6 @@ public class KeyWordFragment extends Fragment {
         mKeyWordTxt.setSelection(mKeyWordTxt.getText().length());
     }
 
-    public boolean searchNOk(){
-        return (mKeyWordTxt.getText().toString().equals(""));
-    }
-
     public void setEnabledKeyWord(final Boolean bool){
         mKeyWordTxt.setEnabled(!bool);
     }

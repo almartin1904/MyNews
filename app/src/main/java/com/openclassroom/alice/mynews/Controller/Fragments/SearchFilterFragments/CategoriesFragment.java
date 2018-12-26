@@ -76,10 +76,6 @@ public class CategoriesFragment extends Fragment {
         return categories;
     }
 
-    public boolean searchNOk() {
-        return  !(mArtsCb.isChecked() || mBusinessCb.isChecked() || mEntrepreneursCb.isChecked() || mPoliticsCb.isChecked() || mSportsCb.isChecked() || mTravelCb.isChecked());
-    }
-
     public void disableChange(Boolean bool){
         mArtsCb.setEnabled(!bool);
         mBusinessCb.setEnabled(!bool);
