@@ -31,7 +31,6 @@
     <string name="category6">Travel</string>
     <string name="beginDate">Begin Date</string>
     <string name="endDate">End Date</string>
-    <string name="SearchCriteriaExtra">SearchCriteriaExtra</string>
     <string name="keyword_search">search query term</string>
     <string name="arrow">arrow</string>
 
@@ -46,7 +45,5 @@
     <string name="NotifTitle">My News</string>
     <string name="NotifMessageBegin">You have </string>
     <string name="NotifMessageEnd"> new interesting articles</string>
-    <string name="NbArticles">nbResponse</string>
-
 
 </resources>

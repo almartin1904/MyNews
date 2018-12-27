@@ -33,22 +33,17 @@ public class RequestResult {
     @Expose
     private Response response;
 
-
-    private static final String API_TOP_STORIES= "TopStories";
-    private static final String API_MOST_POPULAR= "MostPopular";
-    private static final String API_ARTICLE_SEARCH= "ArticleSearch";
-
     public RequestResult(String API, String title){
         switch (API){
-            case API_TOP_STORIES:
+            case NYTArticle.API_TOP_STORIES:
                 this.mNYTArticles = new ArrayList<>();
                 mNYTArticles.add(new NYTArticle(API, title,"","","","",""));
                 break;
-            case API_MOST_POPULAR:
+            case NYTArticle.API_MOST_POPULAR:
                 this.mNYTArticles = new ArrayList<>();
                 mNYTArticles.add(new NYTArticle(API, title,"","","","",""));
                 break;
-            case API_ARTICLE_SEARCH:
+            case NYTArticle.API_ARTICLE_SEARCH:
                 this.response = new Response(API, title);
                 break;
             default:

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.openclassroom.alice.mynews.Controller.Activities.ArticleDisplayActivity;
+import com.openclassroom.alice.mynews.Controller.Activities.SearchActivity;
 import com.openclassroom.alice.mynews.Model.AlreadyReadArticles;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.RequestResult;
@@ -82,7 +83,6 @@ public class DisplayListOfArticleFragment extends Fragment {
     // HTTP (RxJAVA)
     // -------------------
 
-    //todo : is it possible to factorize
     private void executeHttpRequestWithRetrofit(){
         int position;
         if (getArguments() != null) {
@@ -96,7 +96,7 @@ public class DisplayListOfArticleFragment extends Fragment {
             case -1:
                 if (getActivity()!=null){
                     Intent i=getActivity().getIntent();
-                    SearchCriteria searchCriteria = (SearchCriteria) i.getSerializableExtra(String.valueOf(R.string.SearchCriteriaExtra));
+                    SearchCriteria searchCriteria = (SearchCriteria) i.getSerializableExtra(SearchActivity.SEARCH_CRITERIA_EXTRA);
                     this.mDisposable = NYTArticleStreams.streamFetchSearchArticle(searchCriteria.getSearchTerm(), searchCriteria.getSerializedCategories(), searchCriteria.getBeginDateWithAdaptedFormat(), searchCriteria.getEndDateWithAdaptedFormat()).subscribeWith(new DisposableObserver<RequestResult>() {
                         @Override
                         public void onNext(RequestResult requestResult) {

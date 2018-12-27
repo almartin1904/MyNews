@@ -83,9 +83,9 @@ public class NYTArticle {
     @Expose
     private String _abstract;
 
-    private static final String API_TOP_STORIES= "TopStories";
-    private static final String API_MOST_POPULAR= "MostPopular";
-    private static final String API_ARTICLE_SEARCH= "ArticleSearch";
+    public static final String API_TOP_STORIES= "TopStories";
+    public static final String API_MOST_POPULAR= "MostPopular";
+    public static final String API_ARTICLE_SEARCH= "ArticleSearch";
 
     public NYTArticle(String API, String title, String URL, String publishedDate, String section, String subsection, String imageURL){
         switch (API){

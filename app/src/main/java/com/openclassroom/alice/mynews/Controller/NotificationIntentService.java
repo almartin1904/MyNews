@@ -25,7 +25,7 @@ public class NotificationIntentService extends IntentService {
 
         Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle(getResources().getString(R.string.NotifTitle));
-        builder.setContentText(buildMessage(intent.getIntExtra(String.valueOf(R.string.NbArticles), 0)));
+        builder.setContentText(buildMessage(intent.getIntExtra(SendNotificationReceiver.NB_ARTICLE_RESULT, 0)));
         builder.setSmallIcon(R.drawable.logo);
 
         Intent notifyIntent = new Intent(this, NotificationActivity.class);

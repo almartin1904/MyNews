@@ -1,7 +1,5 @@
 package com.openclassroom.alice.mynews.Model;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ import static org.junit.Assert.assertFalse;
  */
 
 public class SearchCriteriaTest {
-    //test création
+
     @Test
     public void createSearchCriteria(){
         List<String> categories = new ArrayList<String>();

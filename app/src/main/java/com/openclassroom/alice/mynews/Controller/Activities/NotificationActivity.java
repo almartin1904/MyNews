@@ -134,7 +134,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         AlarmManager alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(NotificationActivity.this, SendNotificationReceiver.class);
-        intent.putExtra(String.valueOf(R.string.SearchCriteriaExtra), mSearchCriteria);
+        intent.putExtra(SearchActivity.SEARCH_CRITERIA_EXTRA, mSearchCriteria);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(NotificationActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.openclassroom.alice.mynews.Controller.Activities.SearchActivity;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.NYTArticle;
 import com.openclassroom.alice.mynews.Model.ResultOfRequest.RequestResult;
 import com.openclassroom.alice.mynews.Model.SearchCriteria;
@@ -21,11 +22,12 @@ import io.reactivex.observers.DisposableObserver;
 public class SendNotificationReceiver extends BroadcastReceiver {
 
     Disposable mDisposable;
+    public static final String NB_ARTICLE_RESULT = "NB_ARTICLE_RESULT";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
 
-        SearchCriteria mSearchCriteria = (SearchCriteria) intent.getSerializableExtra(String.valueOf(R.string.SearchCriteriaExtra));
+        SearchCriteria mSearchCriteria = (SearchCriteria) intent.getSerializableExtra(SearchActivity.SEARCH_CRITERIA_EXTRA);
         this.mDisposable = NYTArticleStreams.streamFetchSearchArticle(mSearchCriteria.getSearchTerm(), mSearchCriteria.getSerializedCategories(), mSearchCriteria.getBeginDateWithAdaptedFormat(), mSearchCriteria.getEndDateWithAdaptedFormat()).subscribeWith(new DisposableObserver<RequestResult>() {
             @Override
             public void onNext(RequestResult requestResult) {
@@ -44,8 +46,8 @@ public class SendNotificationReceiver extends BroadcastReceiver {
     }
 
     private void sendNotification(Context context, int nbResponse){
-        Intent intent1 = new Intent(context, NotificationIntentService.class);
-        intent1.putExtra(String.valueOf(R.string.NbArticles), nbResponse);
-        context.startService(intent1);
+        Intent intent = new Intent(context, NotificationIntentService.class);
+        intent.putExtra(NB_ARTICLE_RESULT, nbResponse);
+        context.startService(intent);
     }
 }

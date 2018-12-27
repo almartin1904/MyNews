@@ -26,6 +26,8 @@ public class SearchActivity extends AppCompatActivity {
     private DatesFragment mDatesFragment;
     private KeyWordFragment mKeyWordFragment;
 
+    public static final String SEARCH_CRITERIA_EXTRA = "SearchCriteriaExtra";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +106,7 @@ public class SearchActivity extends AppCompatActivity {
                 else {
                     //search criteria are Ok
                     Intent resultActivity = new Intent(SearchActivity.this, SearchResultActivity.class);
-                    resultActivity.putExtra(String.valueOf(R.string.SearchCriteriaExtra), searchCriteria);
+                    resultActivity.putExtra(SEARCH_CRITERIA_EXTRA, searchCriteria);
                     startActivity(resultActivity);
                 }
             }
