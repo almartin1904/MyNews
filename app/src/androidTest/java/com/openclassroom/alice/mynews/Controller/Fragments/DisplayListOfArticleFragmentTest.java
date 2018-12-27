@@ -16,73 +16,53 @@ import static org.junit.Assert.*;
 public class DisplayListOfArticleFragmentTest {
     @Test
     public void fetchArticleTopStories() throws Exception {
-        //1 - Get the stream
         Observable<RequestResult> observableUsers = NYTArticleStreams.streamFetchArticleTopStories();
-        //2 - Create a new TestObserver
         TestObserver<RequestResult> testObserver = new TestObserver<>();
-        //3 - Launch observable
         observableUsers.subscribeWith(testObserver)
-                .assertNoErrors() // 3.1 - Check if no errors
-                .assertNoTimeout() // 3.2 - Check if no Timeout
-                .awaitTerminalEvent(); // 3.3 - Await the stream terminated before continue
+                .assertNoErrors()
+                .assertNoTimeout()
+                .awaitTerminalEvent();
 
-        // 4 - Get list of user fetched
         RequestResult articleFetched = testObserver.values().get(0);
-
         assertEquals((long) articleFetched.getNumResults(), articleFetched.getNYTArticles().size());
     }
 
     @Test
     public void fetchArticleMostPopular() throws Exception {
-        //1 - Get the stream
-        Observable<RequestResult> observableUsers = NYTArticleStreams.streamFetchArticleMostPopular();
-        //2 - Create a new TestObserver
+        Observable<RequestResult> observableArticles = NYTArticleStreams.streamFetchArticleMostPopular();
         TestObserver<RequestResult> testObserver = new TestObserver<>();
-        //3 - Launch observable
-        observableUsers.subscribeWith(testObserver)
-                .assertNoErrors() // 3.1 - Check if no errors
-                .assertNoTimeout() // 3.2 - Check if no Timeout
-                .awaitTerminalEvent(); // 3.3 - Await the stream terminated before continue
+        observableArticles.subscribeWith(testObserver)
+                .assertNoErrors()
+                .assertNoTimeout()
+                .awaitTerminalEvent();
 
-        // 4 - Get list of user fetched
         RequestResult articleFetched = testObserver.values().get(0);
-
         assertEquals(Math.min(articleFetched.getNumResults(), 20), articleFetched.getNYTArticles().size());
     }
 
     @Test
     public void fetchArticleTopStoriesSport() throws Exception {
-        //1 - Get the stream
-        Observable<RequestResult> observableUsers = NYTArticleStreams.streamFetchArticleTopStoriesSport();
-        //2 - Create a new TestObserver
+        Observable<RequestResult> observableArticles = NYTArticleStreams.streamFetchArticleTopStoriesSport();
         TestObserver<RequestResult> testObserver = new TestObserver<>();
-        //3 - Launch observable
-        observableUsers.subscribeWith(testObserver)
-                .assertNoErrors() // 3.1 - Check if no errors
-                .assertNoTimeout() // 3.2 - Check if no Timeout
-                .awaitTerminalEvent(); // 3.3 - Await the stream terminated before continue
+        observableArticles.subscribeWith(testObserver)
+                .assertNoErrors()
+                .assertNoTimeout()
+                .awaitTerminalEvent();
 
-        // 4 - Get list of user fetched
         RequestResult articleFetched = testObserver.values().get(0);
-
         assertEquals(Math.min(articleFetched.getNumResults(), 20), articleFetched.getNYTArticles().size());
     }
 
     @Test
     public void fetchArticleSearchArticle() throws Exception {
-        //1 - Get the stream
-        Observable<RequestResult> observableUsers = NYTArticleStreams.streamFetchSearchArticle("France", "Politics", "18000101", "20190101");
-        //2 - Create a new TestObserver
+        Observable<RequestResult> observableArticles = NYTArticleStreams.streamFetchSearchArticle("France", "Politics", "18000101", "20190101");
         TestObserver<RequestResult> testObserver = new TestObserver<>();
-        //3 - Launch observable
-        observableUsers.subscribeWith(testObserver)
-                .assertNoErrors() // 3.1 - Check if no errors
-                .assertNoTimeout() // 3.2 - Check if no Timeout
-                .awaitTerminalEvent(); // 3.3 - Await the stream terminated before continue
+        observableArticles.subscribeWith(testObserver)
+                .assertNoErrors()
+                .assertNoTimeout()
+                .awaitTerminalEvent();
 
-        // 4 - Get list of user fetched
         RequestResult articleFetched = testObserver.values().get(0);
-
         assertEquals(10, articleFetched.getNYTArticles().size());
     }
 
