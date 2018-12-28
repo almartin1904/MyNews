@@ -49,6 +49,7 @@ public class NotificationActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //Display Alarm
                 if (isChecked){
+                    mSearchCriteria = createSearchCriteria();
                     //If notification criteria are not Ok so send message error
                     if (mSearchCriteria.getSearchTerm().equals("") || mSearchCriteria.getCategories().isEmpty()){
                         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(NotificationActivity.this);
@@ -63,7 +64,6 @@ public class NotificationActivity extends AppCompatActivity {
                         mNotificationSwitch.setChecked(false);
                     } else {
                         //notification criteria are ok so set alarm
-                        mSearchCriteria = createSearchCriteria();
                         mCategoriesFragment.disableChange(true);
                         mKeyWordFragment.setEnabledKeyWord(true);
                         alarmSet();
