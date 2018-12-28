@@ -90,4 +90,39 @@ public class SearchCriteriaTest {
         SearchCriteria searchCriteria = new SearchCriteria("", "12/12/2015", "12/12/2015", new ArrayList<String>());
         assertTrue(searchCriteria.compareDates());
     }
+
+    @Test
+    public void TestDateFormatWrongFormat(){
+        SearchCriteria searchCriteria = new SearchCriteria("France", "888888888", "am6am6pmpm", new ArrayList<String>());
+        assertFalse(searchCriteria.dateFormatIsOk());
+    }
+
+    @Test
+    public void setSearchTerm(){
+        SearchCriteria searchCriteria = new SearchCriteria("", "", "", null);
+        searchCriteria.setSearchTerm("France");
+        assertEquals("France", searchCriteria.getSearchTerm());
+    }
+
+    @Test
+    public void setBeginDate(){
+        SearchCriteria searchCriteria = new SearchCriteria("", "", "", null);
+        searchCriteria.setBeginDate("19/04/1993");
+        assertEquals("19/04/1993", searchCriteria.getBeginDate());
+    }
+
+    @Test
+    public void setEndDate(){
+        SearchCriteria searchCriteria = new SearchCriteria("", "", "", null);
+        searchCriteria.setEndDate("19/04/1993");
+        assertEquals("19/04/1993", searchCriteria.getEndDate());
+    }
+
+    @Test
+    public void setCategories(){
+        SearchCriteria searchCriteria = new SearchCriteria("", "", "", null);
+        searchCriteria.setCategories(new ArrayList<String>());
+        searchCriteria.getCategories().add("Politics");
+        assertEquals("Politics", searchCriteria.getCategories().get(0));
+    }
 }
