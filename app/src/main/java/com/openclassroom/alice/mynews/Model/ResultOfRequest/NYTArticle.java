@@ -124,20 +124,12 @@ public class NYTArticle {
         }
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getUrl() {
         if (webUrl!=null){
             return webUrl;
         } else {
             return url;
         }
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getPublishedDate() {
@@ -153,120 +145,60 @@ public class NYTArticle {
         return day + "/" + month + "/" + year;
     }
 
-    public void setPublishedDate(String publishedDate) {
-        this.publishedDate = publishedDate;
-    }
-
     public String getSection() {
         return section;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
     }
 
     public List<Multimedia> getMultimedia() {
         return multimedia;
     }
 
-    public void setMultimedia(List<Multimedia> multimedia) {
-        this.multimedia = multimedia;
-    }
-
     public List<Media> getMedia() {
         return media;
-    }
-
-    public void setMedia(List<Media> media) {
-        this.media = media;
     }
 
     public String getSubsection() {
         return subsection;
     }
 
-    public void setSubsection(String subsection) {
-        this.subsection = subsection;
-    }
-
     public String getWebUrl() {
         return webUrl;
-    }
-
-    public void setWebUrl(String webUrl) {
-        this.webUrl = webUrl;
     }
 
     public String getSnippet() {
         return snippet;
     }
 
-    public void setSnippet(String snippet) {
-        this.snippet = snippet;
-    }
-
     public String getLeadParagraph() {
         return leadParagraph;
-    }
-
-    public void setLeadParagraph(String leadParagraph) {
-        this.leadParagraph = leadParagraph;
     }
 
     public String getAbstract() {
         return _abstract;
     }
 
-    public void setAbstract(String _abstract) {
-        this._abstract = _abstract;
-    }
-
     public String getPrintPage() {
         return printPage;
-    }
-
-    public void setPrintPage(String printPage) {
-        this.printPage = printPage;
     }
 
     public String getSource() {
         return source;
     }
 
-    public void setSource(String source) {
-        this.source = source;
-    }
-
     public String getPubDate() {
         return pubDate;
-    }
-
-    public void setPubDate(String pubDate) {
-        this.pubDate = pubDate;
     }
 
     public String getDocumentType() {
         return documentType;
     }
 
-    public void setDocumentType(String documentType) {
-        this.documentType = documentType;
-    }
-
     public String getSectionName() {
         return sectionName;
     }
 
-    public void setSectionName(String sectionName) {
-        this.sectionName = sectionName;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getSectionAndSubsection(){
