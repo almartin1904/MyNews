@@ -1,6 +1,10 @@
 language: android
 jdk: oraclejdk8
 
+env:
+  global:
+   - CODECOV = 41ecf180-9727-4d5e-9fb0-dbadd3df31c5
+
 before_install:
   - yes | sdkmanager "platforms;android-27"
 
@@ -11,4 +15,4 @@ before_script:
   - ./gradlew connectedAndroidTest
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) -t $CODECOV
