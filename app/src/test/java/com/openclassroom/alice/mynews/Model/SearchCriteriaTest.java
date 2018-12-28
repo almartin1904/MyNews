@@ -92,6 +92,12 @@ public class SearchCriteriaTest {
     }
 
     @Test
+    public void TestCompareDatesOneBeginDate(){
+        SearchCriteria searchCriteria = new SearchCriteria("", "28/12/2018", "", new ArrayList<String>());
+        assertTrue(searchCriteria.compareDates());
+    }
+
+    @Test
     public void TestDateFormatWrongFormat(){
         SearchCriteria searchCriteria = new SearchCriteria("France", "8888888888", "am6am6pmpm", new ArrayList<String>());
         assertFalse(searchCriteria.dateFormatIsOk());
