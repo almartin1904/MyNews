@@ -41,7 +41,7 @@ public class NotificationActivity extends AppCompatActivity {
         this.configureToolbar();
         this.configureAndShowFragments();
         mPreferences = getSharedPreferences(KEY_PREFERENCES, MODE_PRIVATE);
-        mSearchCriteria = createSearchCriteria();
+
 
         mNotificationSwitch = findViewById(R.id.notification_button);
         mNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -49,7 +49,7 @@ public class NotificationActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //Display Alarm
                 if (isChecked){
-                    //If notification criterias are not Ok so send message error
+                    //If notification criteria are not Ok so send message error
                     if (mSearchCriteria.getSearchTerm().equals("") || mSearchCriteria.getCategories().isEmpty()){
                         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(NotificationActivity.this);
                         builder.setTitle(R.string.ErrorTitle);
@@ -62,7 +62,8 @@ public class NotificationActivity extends AppCompatActivity {
                         builder.show();
                         mNotificationSwitch.setChecked(false);
                     } else {
-                        //notification criterias are ok so set alarm
+                        //notification criteria are ok so set alarm
+                        mSearchCriteria = createSearchCriteria();
                         mCategoriesFragment.disableChange(true);
                         mKeyWordFragment.setEnabledKeyWord(true);
                         alarmSet();

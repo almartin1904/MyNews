@@ -51,10 +51,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(searchActivity);
                 return true;
             case R.id.menu_activity_main_help:
-                Toast.makeText(this, "Help", Toast.LENGTH_LONG).show();
+                Intent helpActivity = new Intent(MainActivity.this, HelpActivity.class);
+                startActivity(helpActivity);
                 return true;
             case R.id.menu_activity_main_about:
-                Toast.makeText(this, "About", Toast.LENGTH_LONG).show();
+                Intent aboutActivity = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(aboutActivity);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

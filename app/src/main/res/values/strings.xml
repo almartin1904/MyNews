@@ -46,4 +46,28 @@
     <string name="NotifMessageBegin">You have </string>
     <string name="NotifMessageEnd"> new interesting articles</string>
 
+    <!--About-->
+    <string name="AboutTitle">What to do with this application ?</string>
+    <string name="AboutText">Based on the New York Times APIs, you can :\n
+* Be informed of the last Top Stories\n
+* Be informed of the Most Popular Articles\n
+* Be informed of the Top Stories about Sport\n
+* Do research with publication dates, key words or categories\n
+* Be notified if articles corresponding to your research has been published</string>
+
+    <!--Help-->
+    <string name="HelpTitle">What you should know about this application ?</string>
+    <string name="HelpTextSearch">To do research :\n
+    * Enter at least one query term\n
+    * (Optional) Enter a begin date manually or by picking the back arrow\n
+    * (Optional) Enter a end date manually or by picking the back arrow\n
+    * Check at least one category</string>
+    <string name="HelpTextNotification">To enable notification :\n
+    * Enter at least one query term\n
+    * Check at least one category\n
+    * Pick the switch button\n
+    You will be notified at 6PM each day if there is new articles for you\n
+    \n
+    Disable notification before changing parameters</string>
+
 </resources>
