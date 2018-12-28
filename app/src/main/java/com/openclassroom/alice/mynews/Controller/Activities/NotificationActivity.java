@@ -155,7 +155,7 @@ public class NotificationActivity extends AppCompatActivity {
     // Create criteria
     //-----------------------------
     private SearchCriteria createSearchCriteria() {
-        String queryTerm = mKeyWordFragment.getKeyKeyWord();
+        String queryTerm = mKeyWordFragment.getKeyWord();
         List<String> categories=mCategoriesFragment.getListOfCategories();
         return new SearchCriteria(queryTerm, SearchCriteria.TODAY, SearchCriteria.TODAY, categories);
     }

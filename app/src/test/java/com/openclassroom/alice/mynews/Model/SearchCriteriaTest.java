@@ -93,7 +93,7 @@ public class SearchCriteriaTest {
 
     @Test
     public void TestDateFormatWrongFormat(){
-        SearchCriteria searchCriteria = new SearchCriteria("France", "888888888", "am6am6pmpm", new ArrayList<String>());
+        SearchCriteria searchCriteria = new SearchCriteria("France", "8888888888", "am6am6pmpm", new ArrayList<String>());
         assertFalse(searchCriteria.dateFormatIsOk());
     }
 
@@ -125,4 +125,6 @@ public class SearchCriteriaTest {
         searchCriteria.getCategories().add("Politics");
         assertEquals("Politics", searchCriteria.getCategories().get(0));
     }
+
+
 }

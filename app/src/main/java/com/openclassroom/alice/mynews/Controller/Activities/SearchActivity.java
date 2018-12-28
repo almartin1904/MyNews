@@ -2,6 +2,7 @@ package com.openclassroom.alice.mynews.Controller.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,8 @@ public class SearchActivity extends AppCompatActivity {
     private CategoriesFragment mCategoriesFragment;
     private DatesFragment mDatesFragment;
     private KeyWordFragment mKeyWordFragment;
+    private SharedPreferences mPreferences;
+    private static final String KEY_SAVE_SEARCH = "KEY_SAVE_SEARCH";
 
     public static final String SEARCH_CRITERIA_EXTRA = "SearchCriteriaExtra";
 
@@ -33,8 +36,26 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+
+        mPreferences = getApplicationContext().getSharedPreferences(KEY_SAVE_SEARCH, MODE_PRIVATE);
         this.configureAndShowFragments();
         this.configureToolbar();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCategoriesFragment.displayCheckBoxState(mPreferences);
+        mKeyWordFragment.displayKeyWordState(mPreferences);
+        mDatesFragment.displayDatesState(mPreferences);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mCategoriesFragment.saveCheckBoxState(mPreferences);
+        mKeyWordFragment.saveKeyWordState(mPreferences);
+        mDatesFragment.saveDatesState(mPreferences);
     }
 
     //-------------------
@@ -114,7 +135,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private SearchCriteria createSearchCriteria() {
-        String queryTerm = mKeyWordFragment.getKeyKeyWord();
+        String queryTerm = mKeyWordFragment.getKeyWord();
         String beginDate = mDatesFragment.getBeginDate();
         String endDate = mDatesFragment.getEndDate();
         List<String> categories=mCategoriesFragment.getListOfCategories();

@@ -33,7 +33,7 @@ public class KeyWordFragment extends Fragment {
         return view;
     }
 
-    public String getKeyKeyWord(){
+    public String getKeyWord(){
         return mKeyWordTxt.getText().toString();
     }
 

@@ -3,6 +3,7 @@ package com.openclassroom.alice.mynews.Controller.Fragments.SearchFilterFragment
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ public class DatesFragment extends Fragment  {
     @BindView(R.id.date_end) EditText mEndDateEditText;
 
     private int last_button_clicked=0;
+    private static final String KEY_BEGIN_DATE= "KEY_BEGIN_DATE";
+    private static final String KEY_END_DATE= "KEY_END_DATE";
 
     public DatesFragment() {
         // Required empty public constructor
@@ -87,7 +90,7 @@ public class DatesFragment extends Fragment  {
         };
     }
 
-    public String createDate(int year, int month, int dayOfMonth){
+    private String createDate(int year, int month, int dayOfMonth){
         month=month+1;
         String stringMonth=String.valueOf(month);
         if (month<10){
@@ -106,6 +109,16 @@ public class DatesFragment extends Fragment  {
 
     public String getEndDate(){
         return mEndDateEditText.getText().toString();
+    }
+
+    public void displayDatesState(SharedPreferences mPreferences) {
+        mBeginDateEditText.setText(mPreferences.getString(KEY_BEGIN_DATE, ""));
+        mEndDateEditText.setText(mPreferences.getString(KEY_END_DATE, ""));
+    }
+
+    public void saveDatesState(SharedPreferences mPreferences){
+        mPreferences.edit().putString(KEY_BEGIN_DATE, getBeginDate()).apply();
+        mPreferences.edit().putString(KEY_END_DATE, getEndDate()).apply();
     }
 
 }

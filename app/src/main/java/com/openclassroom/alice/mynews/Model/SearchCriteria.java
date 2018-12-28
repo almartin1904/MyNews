@@ -1,6 +1,7 @@
 package com.openclassroom.alice.mynews.Model;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -112,6 +113,8 @@ public class SearchCriteria implements Serializable {
     //----------------
 
     public boolean dateFormatIsOk(){
+        System.out.println(testDateFormat(mBeginDate) );
+        System.out.println(testDateFormat(mEndDate) );
         return testDateFormat(mBeginDate) && testDateFormat(mEndDate);
     }
 
