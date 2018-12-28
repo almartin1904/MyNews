@@ -3,7 +3,7 @@ jdk: oraclejdk8
 
 env:
   global:
-   - CODECOV = 41ecf180-9727-4d5e-9fb0-dbadd3df31c5
+   - CODECOV_TOKEN="41ecf180-9727-4d5e-9fb0-dbadd3df31c5"
    - ANDROID_API_LEVEL=27
    - EMULATOR_API_LEVEL=22
    - ANDROID_BUILD_TOOLS_VERSION=27.0.3
@@ -28,4 +28,4 @@ before_script:
   - ./gradlew connectedCheck
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -t $CODECOV
+  - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
