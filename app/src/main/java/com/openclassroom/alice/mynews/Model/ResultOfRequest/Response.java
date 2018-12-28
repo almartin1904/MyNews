@@ -22,8 +22,4 @@ public class Response {
     public List<NYTArticle> getDocs() {
         return docs;
     }
-
-    public void setDocs(List<NYTArticle> docs) {
-        this.docs = docs;
-    }
 }
